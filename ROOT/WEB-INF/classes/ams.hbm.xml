@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="cn.edu.mnnu.ams.model">
+
+	<class name="AdminUser" table="admin_users">
+		<id name="id">
+			<generator class="increment" />
+		</id>
+		<property name="userid" column="user_id" />
+		<property name="name" />
+		<property name="password" />
+		<property name="auth" />
+		<property name="role" />
+	</class>
+	<class name="User" table="users">
+		<id name="id">
+			<generator class="increment" />
+		</id>
+		<property name="uid"/>
+		<property name="mail" />
+		<property name="password" />
+		<property name="role"/>
+		<property name="bindid" />
+	</class>
+	<class name="AlumniInfos" table="alumni_infos">
+		<id name="id">
+			<generator class="increment" />
+		</id>
+		<property name="sno" />
+		<property name="dept" />
+		<property name="major" />
+		<property name="cls" column="class" />
+		<property name="sname" />
+		<property name="sex" />
+		<property name="provincefrom"  column="province_from"/>
+		<property name="cityfrom" column="city_from"/>
+		<property name="districtfrom" column="district_from"/>
+		<property name="degree" />
+		<property name="gratime" column="gra_time" />
+		<property name="provincework" column="province_work" />
+		<property name="citywork" column="city_work" />
+		<property name="districtwork" column="district_work" />
+		<property name="workunit" column="work_unit" />
+		<property name="duty" />
+		<property name="job" />
+		<property name="profession" />
+		<property name="phone1" />
+		<property name="phone2" />
+		<property name="mail" />
+		<property name="qq" />
+		<property name="address" />
+		<property name="zip" />
+		<property name="note" />
+		<property name="assoc1" />
+		<property name="assoc1job" column="assoc1_job" />
+		<property name="assoc2" />
+		<property name="assoc2job" column="assoc2_job" />
+		<property name="updatetime" column="update_time" />
+	</class>
+	<class name="AlumniFrom" table="alumni_from">
+		<id name="id" />
+		<property name="provinceid" />
+		<property name="cityid" />
+		<property name="districtid" />
+	</class>
+	<class name="Province" table="province">
+		<id name="provinceid" />
+		<property name="provincename" column="province_name" />
+	</class>
+	<class name="City" table="city">
+		<id name="cityid" />
+		<property name="cityname" column="city_name" />
+		<property name="zip" />
+		<property name="provinceid" />
+	</class>
+	<class name="District" table="district">
+		<id name="districtid" />
+		<property name="districtname" column="district_name" />
+		<property name="cityid" />
+	</class>
+</hibernate-mapping>
