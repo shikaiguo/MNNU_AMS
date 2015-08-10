@@ -7,7 +7,9 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.springframework.stereotype.Repository;
 
+import cn.edu.mnnu.ams.Func.Func;
 import cn.edu.mnnu.ams.model.AdminUser;
+import cn.edu.mnnu.ams.model.AlumniFrom;
 import cn.edu.mnnu.ams.model.AlumniInfos;
 @Repository 
 public class AdminDAO implements IAdminDAO{
@@ -19,22 +21,18 @@ public class AdminDAO implements IAdminDAO{
 		System.out.println("AdminDAO init success.");
 	}
 	public AdminUser getAllInfo(String uid) {
-		String hql = "From AdminUser user where user.userid='" + uid + "'";
 		Session session = sessionFactory.getCurrentSession();
 		session.beginTransaction();
-		@SuppressWarnings("unchecked")
-		List<AdminUser> list = session.createQuery(hql).list();
+		AdminUser au=(AdminUser) session.get(AdminUser.class, uid);
 		session.getTransaction().commit();
-		return list.size()>0?list.get(0):null;
+		return au;
 	}
 	public String getPassword(String uid) {
-		String hql = "From AdminUser user where user.userid='" + uid + "'";
 		Session session = sessionFactory.getCurrentSession();
 	    session.beginTransaction();
-		@SuppressWarnings("unchecked")
-		List<AdminUser> list = session.createQuery(hql).list();
+		AdminUser au=(AdminUser) session.get(AdminUser.class, uid);
 		session.getTransaction().commit();
-		return list.size()>0? list.get(0).getPassword():null;
+		return au==null?null:au.getPassword();
 	}
 
 	public void setPassword(String uid, String pwd) {
@@ -59,41 +57,13 @@ public class AdminDAO implements IAdminDAO{
 					+ ai.getDept() + "'";
 			int ii = session.createQuery(hql).list().size();
 			if (ii == 0) {
+				AlumniFrom af=new AlumniFrom();
 				session.save(ai);
-				//AlumniFrom af = new AlumniFrom();
-				/*
 				af.setId(ai.getId());
-				// ʡid
-				int provinceid = new Func().getProvinceID(ai.getProvincefrom());
-				af.setProvinceid(provinceid);
-				int cityid = 0;
-				String cname = ai.getSfrom();
-				switch (provinceid) {
-					case 0:
-						break;
-					case 5:
-						;
-					case 8:
-						if (cname.length() >= 1) cname = cname.substring(1);
-					default:
-						if (cname.length() >= 2) cname = cname.substring(2);
-				}
-				String district = new Func().getCityID(cname);
-				if (district != null) {
-					cityid = Integer.parseInt(district.split(":")[1]);
-					af.setCityid(cityid);
-					district = district.split(":")[0];
-					if (!district.equals("")) {
-						af.setDistrictid(new Func().getDistrictID(district));
-					}
-				}
-				if (provinceid == 0 && cityid != 0) {
-					hql = "From City c WHERE c.cityid='" + cityid + "'";
-					af.setProvinceid(((City) session.createQuery(hql).list()
-							.get(0)).getProvinceid());
-				}
-				session.save(af);
-				*/
+				af.setProvinceid(new Func().getProvinceID(ai.getProvincefrom()));
+				af.setCityid(new Func().getCityID(ai.getCityfrom()));
+				af.setDistrictid(new Func().getDistrictID(ai.getDistrictfrom()));
+				session.saveOrUpdate(af);
 			}
 			if (i % 50 == 0) {
 				session.flush();
@@ -101,7 +71,6 @@ public class AdminDAO implements IAdminDAO{
 			}
 		}
 		session.getTransaction().commit();
-		session.close();
 	}
 
 	public List<AlumniInfos> queryAlumniInfos(String condition/*AlumniInfos member='xxx' [AND ... ]*/) {

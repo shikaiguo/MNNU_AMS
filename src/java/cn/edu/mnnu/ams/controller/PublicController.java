@@ -42,7 +42,6 @@ public class PublicController extends SuperController{
 		
 		return "/Public/login";
 	}
-
 	/**
 	 * 提交登陆方法 判断提交的uid和pwd，判断登陆者 验证成功设置session中uid，pwd，role元素，跳转到对应主页 验证失败返回登录页
 	 * 

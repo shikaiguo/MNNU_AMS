@@ -1,20 +1,11 @@
 package cn.edu.mnnu.ams.model;
 
 public class AdminUser {
-	private int id;
 	private String userid;
 	private String name;
 	private String password;
 	private String auth;
 	private String role;
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
 
 	public String getUserid() {
 		return userid;

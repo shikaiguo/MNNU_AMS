@@ -148,7 +148,7 @@ public class AdminController extends SuperController{
 			else if (headString.equals("校友分会职务")) arr[celli] = 28;
 		}
 		// 处理表格
-		for (int rowi = 1; rowi < s1.getLastRowNum(); rowi++) {
+		for (int rowi = 1; rowi <= s1.getLastRowNum(); rowi++) {
 			row = s1.getRow(rowi);
 			if (row == null) continue;
 			AlumniInfos ai = new AlumniInfos();

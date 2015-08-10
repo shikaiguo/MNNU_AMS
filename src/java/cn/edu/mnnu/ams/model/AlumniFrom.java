@@ -19,6 +19,8 @@ public class AlumniFrom {
 	}
 
 	public void setProvinceid(int provinceid) {
+		if(provinceid==0)
+			return;
 		Provinceid = provinceid;
 	}
 
@@ -27,6 +29,8 @@ public class AlumniFrom {
 	}
 
 	public void setCityid(int cityid) {
+		if(cityid==0)
+			return;
 		this.cityid = cityid;
 	}
 
@@ -35,6 +39,8 @@ public class AlumniFrom {
 	}
 
 	public void setDistrictid(int districtid) {
+		if(districtid==0)
+			return;
 		this.districtid = districtid;
 	}
 
