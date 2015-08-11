@@ -62,9 +62,10 @@ public class UserController extends SuperController{
 			e.printStackTrace();
 		}
 		String condition=request.getParameter("condition");
+		if(condition.trim().equals(""))
+			condition="1=1";
 		//@RequestParam("condition")String condition
 		List<AlumniInfos>list=userDAO.getAllInfos(condition);
-		System.out.println("finish");
 		return list;
 	}
 	@RequestMapping({"/allumniGarden","personInfo","Query","QueryShow"})
