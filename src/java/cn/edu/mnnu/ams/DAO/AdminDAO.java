@@ -30,7 +30,7 @@ public class AdminDAO implements IAdminDAO{
 	public String getPassword(String uid) {
 		Session session = sessionFactory.getCurrentSession();
 	    session.beginTransaction();
-		AdminUser au=(AdminUser) session.get(AdminUser.class, uid);
+	    AdminUser au=(AdminUser) session.get(AdminUser.class, uid);
 		session.getTransaction().commit();
 		return au==null?null:au.getPassword();
 	}
@@ -51,7 +51,7 @@ public class AdminDAO implements IAdminDAO{
 		hql = "";
 		for (int i = 0; i < list.size(); i++) {
 			AlumniInfos ai = list.get(i);
-			// ²éÖØ
+			// æŸ¥é‡
 			hql = "FROM AlumniInfos ai  WHERE ai.sno='" + ai.getSno()
 					+ "' AND ai.sname='" + ai.getSname() + "' AND ai.dept='"
 					+ ai.getDept() + "'";

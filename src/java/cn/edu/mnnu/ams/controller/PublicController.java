@@ -17,7 +17,7 @@ public class PublicController extends SuperController{
 		 System.out.println("PublicController init success.");
 	}
 	/**
-	 * µÇÂ½·½·¨ ÅĞ¶ÏsessionÖĞµÄroleÔªËØ£¬ÓĞÔò³äµ±ÅĞ¶Ï¿ØÖÆÆ÷£¬Ìø×ªµ½ÏàÓ¦Ö÷Ò³ ÎŞÔòÏÔÊ¾µÇÂ½Ò³Ãæ
+	 * ç™»é™†æ–¹æ³• åˆ¤æ–­sessionä¸­çš„roleå…ƒç´ ï¼Œæœ‰åˆ™å……å½“åˆ¤æ–­æ§åˆ¶å™¨ï¼Œè·³è½¬åˆ°ç›¸åº”ä¸»é¡µ æ— åˆ™æ˜¾ç¤ºç™»é™†é¡µé¢
 	 * 
 	 * @param session
 	 * @param request
@@ -28,7 +28,6 @@ public class PublicController extends SuperController{
 		String remoteAddr = request.getRemoteAddr();
 		NDC.clear();
 		NDC.push(remoteAddr);
-		
 		Object roletype = session.getAttribute("roletype");
 		if (roletype != null) {
 			if (roletype.toString().equals("admin")) {
@@ -42,8 +41,9 @@ public class PublicController extends SuperController{
 		
 		return "/Public/login";
 	}
+
 	/**
-	 * Ìá½»µÇÂ½·½·¨ ÅĞ¶ÏÌá½»µÄuidºÍpwd£¬ÅĞ¶ÏµÇÂ½Õß ÑéÖ¤³É¹¦ÉèÖÃsessionÖĞuid£¬pwd£¬roleÔªËØ£¬Ìø×ªµ½¶ÔÓ¦Ö÷Ò³ ÑéÖ¤Ê§°Ü·µ»ØµÇÂ¼Ò³
+	 * æäº¤ç™»é™†æ–¹æ³• åˆ¤æ–­æäº¤çš„uidå’Œpwdï¼Œåˆ¤æ–­ç™»é™†è€… éªŒè¯æˆåŠŸè®¾ç½®sessionä¸­uidï¼Œpwdï¼Œroleå…ƒç´ ï¼Œè·³è½¬åˆ°å¯¹åº”ä¸»é¡µ éªŒè¯å¤±è´¥è¿”å›ç™»å½•é¡µ
 	 * 
 	 * @param session
 	 * @param request
@@ -79,7 +79,7 @@ public class PublicController extends SuperController{
 	}
 
 	/**
-	 * ×¢Ïú·½·¨ ×¢Ïúsession Éú³ÉĞÂµÄsession£¬·µ»ØµÇÂ¼Ò³
+	 * æ³¨é”€æ–¹æ³• æ³¨é”€session ç”Ÿæˆæ–°çš„sessionï¼Œè¿”å›ç™»å½•é¡µ
 	 * 
 	 * @param session
 	 * @return

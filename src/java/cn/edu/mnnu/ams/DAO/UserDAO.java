@@ -45,7 +45,6 @@ public class UserDAO implements IUserDAO{
 	}
 	public List<AlumniInfos> getAllInfos(String condition){
 		String hql="From AlumniInfos Where "+condition;
-		System.out.println(hql);
 		Session session = sessionFactory.getCurrentSession();
 		session.beginTransaction();
 		@SuppressWarnings("unchecked")

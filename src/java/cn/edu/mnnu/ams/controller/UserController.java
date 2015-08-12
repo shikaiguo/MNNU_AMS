@@ -34,7 +34,7 @@ public class UserController extends SuperController{
 		session.setAttribute("uid", u.getUid());
 		String role=new Func().getRole(u.getRole());
 		m.addAttribute("role",role);
-		if(!role.equals("校友")){
+		if(!role.equals("鏍″弸")){
 			m.addAttribute("name", u.getUid());
 		}
 		else{
@@ -52,7 +52,7 @@ public class UserController extends SuperController{
 	@RequestMapping(value="/QueryShow",method=RequestMethod.POST)
 	public @ResponseBody List<AlumniInfos> queryP(HttpServletRequest request){
 		/*
-		 * 判断角色   根据角色+限制字段   校长+""   院长+"And dept=xxx"
+		 * 鍒ゆ柇瑙掕壊   鏍规嵁瑙掕壊+闄愬埗瀛楁   鏍￠暱+""   闄㈤暱+"And dept=xxx"
 		 * 0@all    1@8    2@120  3@6
 		 */
 		try {

@@ -6,14 +6,14 @@ import cn.edu.mnnu.ams.model.AdminUser;
 import cn.edu.mnnu.ams.model.AlumniInfos;
 
 public interface IAdminDAO {
-	//´Óadmin_users±í »ñÈ¡Ö¸¶¨uidµÄ¹ÜÀíÔ±ĞÅÏ¢£¬´æÔÚ·µ»ØAdminUser¶ÔÏó£¬²»´æÔÚ·µ»Ønull
+	//ä»admin_usersè¡¨ è·å–æŒ‡å®šuidçš„ç®¡ç†å‘˜ä¿¡æ¯ï¼Œå­˜åœ¨è¿”å›AdminUserå¯¹è±¡ï¼Œä¸å­˜åœ¨è¿”å›null
 	public AdminUser getAllInfo(String uid) ;
-	//´Óadmin_users±í »ñÈ¡Ö¸¶¨uidµÄ¹ÜÀíÔ±ÃÜÂë£¬´æÔÚ·µ»ØStringÀàĞÍÃÜÂë£¬²»´æÔÚ·µ»Ønull
+	//ä»admin_usersè¡¨ è·å–æŒ‡å®šuidçš„ç®¡ç†å‘˜å¯†ç ï¼Œå­˜åœ¨è¿”å›Stringç±»å‹å¯†ç ï¼Œä¸å­˜åœ¨è¿”å›null
 	public String getPassword(String uid);
-	//Ïòadmin_users±í ÉèÖÃÖ¸¶¨uidµÄ¹ÜÀíÔ±ÃÜÂë
+	//å‘admin_usersè¡¨ è®¾ç½®æŒ‡å®šuidçš„ç®¡ç†å‘˜å¯†ç 
 	public void setPassword(String uid,String newPwd);
-	//½«Ğ£ÓÑĞÅÏ¢ÁĞ±íList<AlumniInfos>´æ´¢µ½Êı¾İ¿âalumni_infos±í
+	//å°†æ ¡å‹ä¿¡æ¯åˆ—è¡¨List<AlumniInfos>å­˜å‚¨åˆ°æ•°æ®åº“alumni_infosè¡¨
 	public void importAlumniInfos(List<AlumniInfos> list) ;
-	//´Óalumni_infos±í °´Ìõ¼şcondition²éÑ¯·ûºÏ¶ÔÏóÁĞ±í£¬·µ»ØList<AlumniInfos>¶ÔÏó(°üº¬size=0)
+	//ä»alumni_infosè¡¨ æŒ‰æ¡ä»¶conditionæŸ¥è¯¢ç¬¦åˆå¯¹è±¡åˆ—è¡¨ï¼Œè¿”å›List<AlumniInfos>å¯¹è±¡(åŒ…å«size=0)
 	public List<AlumniInfos> queryAlumniInfos(String condition);
 }

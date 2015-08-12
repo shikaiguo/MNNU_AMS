@@ -6,12 +6,12 @@ import cn.edu.mnnu.ams.model.AlumniInfos;
 import cn.edu.mnnu.ams.model.User;
 
 public interface IUserDAO {
-	//´Óusers±í »ñÈ¡Ö¸¶¨uidµÄÓÃ»§ÃÜÂë ´æÔÚ·µ»ØStringĞÍÃÜÂë£¬·ñÔò·µ»Ønull
+	//ä»usersè¡¨ è·å–æŒ‡å®šuidçš„ç”¨æˆ·å¯†ç  å­˜åœ¨è¿”å›Stringå‹å¯†ç ï¼Œå¦åˆ™è¿”å›null
 	public String getPassword(String uid);
-	//´Óusers±í »ñÈ¡Ö¸¶¨uidµÄÓÃ»§ĞÅÏ¢ ´æÔÚ·µ»ØUser¶ÔÏó£¬·ñÔò·µ»Ønull
+	//ä»usersè¡¨ è·å–æŒ‡å®šuidçš„ç”¨æˆ·ä¿¡æ¯ å­˜åœ¨è¿”å›Userå¯¹è±¡ï¼Œå¦åˆ™è¿”å›null
 	public User getUserInfo(String uid);
-	//´Óalumni_infos±í»ñÈ¡Ö¸¶¨idµÄĞ£ÓÑĞÅÏ¢£¬´æÔÚ·µ»ØAlumniInfos¶ÔÏó£¬·ñÔò·µ»Ønull
+	//ä»alumni_infosè¡¨è·å–æŒ‡å®šidçš„æ ¡å‹ä¿¡æ¯ï¼Œå­˜åœ¨è¿”å›AlumniInfoså¯¹è±¡ï¼Œå¦åˆ™è¿”å›null
 	public AlumniInfos getDetailById(String id);
-	//´Óalumni_infos±í °´Ö¸¶¨Ìõ¼şcondition²éÑ¯·ûºÏ¶ÔÏóÁĞ±í£¬·µ»ØList<AlumniInfos>¶ÔÏó(°üº¬size=0)
+	//ä»alumni_infosè¡¨ æŒ‰æŒ‡å®šæ¡ä»¶conditionæŸ¥è¯¢ç¬¦åˆå¯¹è±¡åˆ—è¡¨ï¼Œè¿”å›List<AlumniInfos>å¯¹è±¡(åŒ…å«size=0)
 	public List<AlumniInfos> getAllInfos(String condition);
 }

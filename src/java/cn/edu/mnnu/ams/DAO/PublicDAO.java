@@ -1,4 +1,4 @@
 package cn.edu.mnnu.ams.DAO;
 
-//¹«¹²DAO
+//å…¬å…±DAO
 public class PublicDAO {}

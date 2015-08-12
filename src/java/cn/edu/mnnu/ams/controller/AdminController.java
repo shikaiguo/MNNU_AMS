@@ -30,8 +30,8 @@ public class AdminController extends SuperController{
 		System.out.println("AdminController init success.");
 	}
 	/**
-	 * ¹ÜÀíÔ±Ö÷Ò³ ÑéÖ¤sessionµÄroleÔªËØ£¬¹ıÂËÓÃ»§ÊäÈë£¬ÎŞÔòÌø×ªµ½µÇÂ½ ÓĞÔòÑéÖ¤sessionµÄpwdÔªËØ£¬¼ìÑéÓÃ»§ÃÜÂëĞŞ¸Ä
-	 * ÑéÖ¤³É¹¦´ÓDB»ñÈ¡¸ÃÓÃ»§ËùÓĞĞÅÏ¢£¬ÏÔÊ¾Ö÷Ò³Ãæ ÑéÖ¤Ê§°ÜÌø×ªµ½µÇÂ½
+	 * ç®¡ç†å‘˜ä¸»é¡µ éªŒè¯sessionçš„roleå…ƒç´ ï¼Œè¿‡æ»¤ç”¨æˆ·è¾“å…¥ï¼Œæ— åˆ™è·³è½¬åˆ°ç™»é™† æœ‰åˆ™éªŒè¯sessionçš„pwdå…ƒç´ ï¼Œæ£€éªŒç”¨æˆ·å¯†ç ä¿®æ”¹
+	 * éªŒè¯æˆåŠŸä»DBè·å–è¯¥ç”¨æˆ·æ‰€æœ‰ä¿¡æ¯ï¼Œæ˜¾ç¤ºä¸»é¡µé¢ éªŒè¯å¤±è´¥è·³è½¬åˆ°ç™»é™†
 	 * 
 	 * @param session
 	 * @param request
@@ -50,7 +50,7 @@ public class AdminController extends SuperController{
 	}
 
 	/**
-	 * ¸ü¸ÄÃÜÂë·½·¨ ¼ì²éĞÂÃÜÂëºÏ·¨ĞÔ(Î´Íê³É) ÑéÖ¤¾ÉÃÜÂë ¼ìÑé³É¹¦£¬¸ü¸ÄÃÜÂë£¬¸üĞÂsessionµÄpwdÔªËØ
+	 * æ›´æ”¹å¯†ç æ–¹æ³• æ£€æŸ¥æ–°å¯†ç åˆæ³•æ€§(æœªå®Œæˆ) éªŒè¯æ—§å¯†ç  æ£€éªŒæˆåŠŸï¼Œæ›´æ”¹å¯†ç ï¼Œæ›´æ–°sessionçš„pwdå…ƒç´ 
 	 * 
 	 * @param session
 	 * @param request
@@ -74,7 +74,7 @@ public class AdminController extends SuperController{
 	}
 
 	/**
-	 * ÏÔÊ¾µ¼ÈëexcelÒ³Ãæ
+	 * æ˜¾ç¤ºå¯¼å…¥excelé¡µé¢
 	 * 
 	 * @return
 	 */
@@ -84,8 +84,8 @@ public class AdminController extends SuperController{
 	}
 
 	/**
-	 * µ¼Èëexcel´¦Àí ´ÓrequestÖĞ¶ÁÈ¡ÉÏ´«ÎÄ¼şfile£¬»ñÈ¡ÊäÈëÁ÷stream ÅĞ¶ÏÉÏ´«ÎÄ¼şÀàĞÍ£¬ÊÇ*.xlsÔò¸³µ½Workbook¶ÔÏó
-	 * ¶Ô.xls½øĞĞ´¦Àí £¨Î´Íê³É£©
+	 * å¯¼å…¥excelå¤„ç† ä»requestä¸­è¯»å–ä¸Šä¼ æ–‡ä»¶fileï¼Œè·å–è¾“å…¥æµstream åˆ¤æ–­ä¸Šä¼ æ–‡ä»¶ç±»å‹ï¼Œæ˜¯*.xlsåˆ™èµ‹åˆ°Workbookå¯¹è±¡
+	 * å¯¹.xlsè¿›è¡Œå¤„ç† ï¼ˆæœªå®Œæˆï¼‰
 	 * 
 	 * @param file
 	 * @return
@@ -100,13 +100,13 @@ public class AdminController extends SuperController{
 			wb = new HSSFWorkbook(stream);
 			stream.close();
 		} else {
-			System.out.println("Ä¿Ç°Ö»Ö§³ÖÊ¹ÓÃ*.xlsÎÄ¼ş");
+			System.out.println("ç›®å‰åªæ”¯æŒä½¿ç”¨*.xlsæ–‡ä»¶");
 			return null;
 		}
 		HSSFSheet s1 = wb.getSheetAt(0);
 		String value = "";
 		List<AlumniInfos> list = new ArrayList<AlumniInfos>();
-		// ´¦Àí±íÍ·
+		// å¤„ç†è¡¨å¤´
 		HSSFRow row = s1.getRow(0);
 		int[] arr = new int[29];
 		if (row == null) {
@@ -117,37 +117,37 @@ public class AdminController extends SuperController{
 			HSSFCell cell = row.getCell(celli);
 			if (cell == null) continue;
 			String headString = cell.getStringCellValue();
-			if (headString.equals("Ïµ±ğ")) arr[celli] = 0;
-			else if (headString.equals("×¨Òµ")) arr[celli] = 1;
-			else if (headString.equals("°à¼¶")) arr[celli] = 2;
-			else if (headString.equals("Ñ§ºÅ")) arr[celli] = 3;
-			else if (headString.equals("ĞÕÃû")) arr[celli] = 4;
-			else if (headString.equals("ĞÔ±ğ")) arr[celli] = 5;
-			else if (headString.equals("ÉúÔ´µØÊ¡")) arr[celli] = 6;
-			else if (headString.equals("ÉúÔ´µØÊĞ")) arr[celli] = 7;
-			else if (headString.equals("ÉúÔ´µØÇø")) arr[celli] = 8;
-			else if (headString.equals("Ñ§Àú")) arr[celli] = 9;
-			else if (headString.equals("±ÏÒµÊ±¼ä")) arr[celli] = 10;
-			else if (headString.equals("¹¤×÷Ê¡·İ")) arr[celli] = 11;
-			else if (headString.equals("¹¤×÷ÊĞ")) arr[celli] = 12;
-			else if (headString.equals("¹¤×÷µØÇø")) arr[celli] = 13;
-			else if (headString.equals("¹¤×÷µ¥Î»")) arr[celli] = 14;
-			else if (headString.equals("Ö°Îñ")) arr[celli] = 15;
-			else if (headString.equals("Ö°³Æ")) arr[celli] = 16;
-			else if (headString.equals("ĞĞÒµ")) arr[celli] = 17;
-			else if (headString.equals("ÁªÏµµç»°")) arr[celli] = 18;
-			else if (headString.equals("¹Ì¶¨µç»°")) arr[celli] = 19;
-			else if (headString.equals("ÓÊÏä")) arr[celli] = 20;
-			else if (headString.equals("QQºÅ")) arr[celli] = 21;
-			else if (headString.equals("Í¨Ñ¶µØÖ·")) arr[celli] = 22;
-			else if (headString.equals("ÓÊ±à")) arr[celli] = 23;
-			else if (headString.equals("±¸×¢")) arr[celli] = 24;
-			else if (headString.equals("ËùÊôĞ£ÓÑ×Ü»á")) arr[celli] = 25;
-			else if (headString.equals("Ğ£ÓÑ×Ü»áÖ°Îñ")) arr[celli] = 26;
-			else if (headString.equals("ËùÊôĞ£ÓÑ·Ö»á")) arr[celli] = 27;
-			else if (headString.equals("Ğ£ÓÑ·Ö»áÖ°Îñ")) arr[celli] = 28;
+			if (headString.equals("ç³»åˆ«")) arr[celli] = 0;
+			else if (headString.equals("ä¸“ä¸š")) arr[celli] = 1;
+			else if (headString.equals("ç­çº§")) arr[celli] = 2;
+			else if (headString.equals("å­¦å·")) arr[celli] = 3;
+			else if (headString.equals("å§“å")) arr[celli] = 4;
+			else if (headString.equals("æ€§åˆ«")) arr[celli] = 5;
+			else if (headString.equals("ç”Ÿæºåœ°çœ")) arr[celli] = 6;
+			else if (headString.equals("ç”Ÿæºåœ°å¸‚")) arr[celli] = 7;
+			else if (headString.equals("ç”Ÿæºåœ°åŒº")) arr[celli] = 8;
+			else if (headString.equals("å­¦å†")) arr[celli] = 9;
+			else if (headString.equals("æ¯•ä¸šæ—¶é—´")) arr[celli] = 10;
+			else if (headString.equals("å·¥ä½œçœä»½")) arr[celli] = 11;
+			else if (headString.equals("å·¥ä½œå¸‚")) arr[celli] = 12;
+			else if (headString.equals("å·¥ä½œåœ°åŒº")) arr[celli] = 13;
+			else if (headString.equals("å·¥ä½œå•ä½")) arr[celli] = 14;
+			else if (headString.equals("èŒåŠ¡")) arr[celli] = 15;
+			else if (headString.equals("èŒç§°")) arr[celli] = 16;
+			else if (headString.equals("è¡Œä¸š")) arr[celli] = 17;
+			else if (headString.equals("è”ç³»ç”µè¯")) arr[celli] = 18;
+			else if (headString.equals("å›ºå®šç”µè¯")) arr[celli] = 19;
+			else if (headString.equals("é‚®ç®±")) arr[celli] = 20;
+			else if (headString.equals("QQå·")) arr[celli] = 21;
+			else if (headString.equals("é€šè®¯åœ°å€")) arr[celli] = 22;
+			else if (headString.equals("é‚®ç¼–")) arr[celli] = 23;
+			else if (headString.equals("å¤‡æ³¨")) arr[celli] = 24;
+			else if (headString.equals("æ‰€å±æ ¡å‹æ€»ä¼š")) arr[celli] = 25;
+			else if (headString.equals("æ ¡å‹æ€»ä¼šèŒåŠ¡")) arr[celli] = 26;
+			else if (headString.equals("æ‰€å±æ ¡å‹åˆ†ä¼š")) arr[celli] = 27;
+			else if (headString.equals("æ ¡å‹åˆ†ä¼šèŒåŠ¡")) arr[celli] = 28;
 		}
-		// ´¦Àí±í¸ñ
+		// å¤„ç†è¡¨æ ¼
 		for (int rowi = 1; rowi <= s1.getLastRowNum(); rowi++) {
 			row = s1.getRow(rowi);
 			if (row == null) continue;
@@ -157,7 +157,7 @@ public class AdminController extends SuperController{
 				if (cell == null) continue;
 				switch (cell.getCellType()) {
 					case HSSFCell.CELL_TYPE_NUMERIC:
-						// ¶ÔÊı×Ö½øĞĞ¸ñÊ½»¯£¬Ê¹Æä²»×Ô¶¯×ª»¯Îª¿ÆÑ§¼ÆÊı·¨¡£
+						// å¯¹æ•°å­—è¿›è¡Œæ ¼å¼åŒ–ï¼Œä½¿å…¶ä¸è‡ªåŠ¨è½¬åŒ–ä¸ºç§‘å­¦è®¡æ•°æ³•ã€‚
 						java.text.NumberFormat nf = java.text.NumberFormat
 								.getInstance();
 						nf.setGroupingUsed(false);
@@ -170,7 +170,7 @@ public class AdminController extends SuperController{
 					default:
 						value = "";
 				}
-				// ÔÚai.setXXX()Ç°±àĞ´´úÂë¶Ô¸ÃÊôĞÔ½øĞĞ´¦Àí
+				// åœ¨ai.setXXX()å‰ç¼–å†™ä»£ç å¯¹è¯¥å±æ€§è¿›è¡Œå¤„ç†
 				switch (arr[celli]) {
 					case 0:
 						ai.setDept(value);
@@ -261,7 +261,7 @@ public class AdminController extends SuperController{
 						break;
 				}
 			}
-			// ÔÚ´Ë±àĞ´¶Ô¸Ã¶ÔÏó½øĞĞ´¦Àí
+			// åœ¨æ­¤ç¼–å†™å¯¹è¯¥å¯¹è±¡è¿›è¡Œå¤„ç†
 			list.add(ai);
 		}
 		wb.close();
