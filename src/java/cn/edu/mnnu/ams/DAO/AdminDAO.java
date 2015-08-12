@@ -1,4 +1,4 @@
-package cn.edu.mnnu.ams.DAO;
+package cn.edu.mnnu.ams.dao;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.springframework.stereotype.Repository;
 
-import cn.edu.mnnu.ams.Func.Func;
+import cn.edu.mnnu.ams.func.Func;
 import cn.edu.mnnu.ams.model.AdminUser;
 import cn.edu.mnnu.ams.model.AlumniFrom;
 import cn.edu.mnnu.ams.model.AlumniInfos;

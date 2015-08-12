@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import cn.edu.mnnu.ams.Func.Func;
+import cn.edu.mnnu.ams.func.Func;
 import cn.edu.mnnu.ams.model.AlumniInfos;
 import cn.edu.mnnu.ams.model.User;
 

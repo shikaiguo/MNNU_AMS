@@ -2,8 +2,8 @@ package cn.edu.mnnu.ams.controller;
 
 import org.apache.log4j.Logger;
 
-import cn.edu.mnnu.ams.DAO.AdminDAO;
-import cn.edu.mnnu.ams.DAO.UserDAO;
+import cn.edu.mnnu.ams.dao.AdminDAO;
+import cn.edu.mnnu.ams.dao.UserDAO;
 
 public class SuperController {
 	protected static Logger logger = Logger.getLogger(AdminController.class);

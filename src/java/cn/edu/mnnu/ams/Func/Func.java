@@ -1,4 +1,4 @@
-package cn.edu.mnnu.ams.Func;
+package cn.edu.mnnu.ams.func;
 
 public class Func {
 	String[] provinces = { "北京市", "天津市", "河北省", "山西省", "内蒙古自治区", "辽宁省", "吉林省",

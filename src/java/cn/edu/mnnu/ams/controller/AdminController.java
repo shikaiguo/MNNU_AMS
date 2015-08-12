@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import cn.edu.mnnu.ams.DAO.UserDAO;
+import cn.edu.mnnu.ams.dao.UserDAO;
 import cn.edu.mnnu.ams.model.AdminUser;
 import cn.edu.mnnu.ams.model.AlumniInfos;
 import cn.edu.mnnu.ams.model.JqGridData;
