@@ -52,4 +52,24 @@ public class UserDAO implements IUserDAO{
 		session.getTransaction().commit();
 		return list;
 	}
+	/*
+	* 8-11新增 jqgrid读取结果集方法 未完善
+	*/
+	
+	//读取所有校友信息返回给jqgrid前台
+	public List<AlumniInfos> getAllInfos(){
+		String hql = "From AlumniInfos";
+		Session session =sessionFactory.getCurrentSession();
+		session.beginTransaction();
+		@SuppressWarnings("unchecked")
+		List<AlumniInfos> list = session.createQuery(hql).list();
+		session.getTransaction().commit();
+		return list;
+	}
+	
+	//保存数据修改操作
+	public List<AlumniInfos> saveEdit(String s){
+		System.out.println(s);
+		return null;
+	}
 }

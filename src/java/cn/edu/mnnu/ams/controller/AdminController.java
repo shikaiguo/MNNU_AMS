@@ -17,10 +17,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import cn.edu.mnnu.ams.DAO.UserDAO;
 import cn.edu.mnnu.ams.model.AdminUser;
 import cn.edu.mnnu.ams.model.AlumniInfos;
+import cn.edu.mnnu.ams.model.JqGridData;
 
 @Controller
 @RequestMapping("/Admin")
@@ -279,5 +282,89 @@ public class AdminController extends SuperController{
 		m.addAttribute("auth", au.getAuth());
 		m.addAttribute("name", au.getName());
 		return "/Admin/myProfile";
+	}
+	
+	 /*
+     * 8-11新增
+     */
+	
+	//查询页面
+	@RequestMapping(value="/query",method=RequestMethod.GET)
+	public String toQuery(){
+		return "/Admin/query";
+	}
+	
+	//字段显示选择页面
+	@RequestMapping(value="/selectFilter",method=RequestMethod.GET)
+	public String toSelectFilter(){
+		return "/Admin/selectFilter";
+	}
+	
+	//邮件管理
+	@RequestMapping(value="/emailsMenage")
+	public String toEmailMenage(){
+		return "/Admin/emailsMenage";
+	}
+	
+	//发送邮件
+	@RequestMapping(value="/sendEmails",method=RequestMethod.GET)
+	public String toSendEmails(){
+		return "/Admin/sendEmails";
+	}
+	
+	//定期发送邮件
+	@RequestMapping(value="/sendRegular",method=RequestMethod.GET)
+	public String toSendRegular(){
+		return "/Admin/sendRegular";
+	}
+	
+	//校友统计页面
+	@RequestMapping(value="/alumniStatistics",method=RequestMethod.GET)
+	public String toAlumniStatistics(){
+		return "/Admin/alumniStatistics";
+	}
+	
+	//权限分配页面
+	@RequestMapping(value="/authorityAssign",method=RequestMethod.GET)
+	public String toAuthorityAssign(){
+		return "/Admin/authorityAssign";
+	}
+	
+	//查询对话框
+	@RequestMapping(value="/queryDialog")
+	public String toQueryDialog(){
+		return "/Admin/queryDialog";
+	}
+	
+	//jqgrid 读取数据
+	@RequestMapping(value="/jqgridAllDate")
+	public @ResponseBody JqGridData<AlumniInfos> loadList(@RequestParam("rows") String rows,@RequestParam("page") String page, AlumniInfos user){
+		JqGridData<AlumniInfos> ulist=new JqGridData<AlumniInfos>();
+		List<AlumniInfos> alumniList=new ArrayList<AlumniInfos>();
+		int rowsInt=Integer.parseInt(rows);
+		int pageInt=Integer.parseInt(page);
+		ulist.setPage(pageInt);
+		ulist.setRows(rowsInt);
+		UserDAO userDAO=new UserDAO();
+		alumniList=userDAO.getAllInfos();
+		int totalRecord=alumniList.size();
+		ulist.setRecords(totalRecord);
+		int totalPage=totalRecord%rowsInt==0?totalRecord/rowsInt:totalRecord/rowsInt+1;
+		ulist.setTotal(totalPage);
+		ulist.setGridModel(alumniList);
+		return ulist;
+	}	
+	
+	//test
+	@RequestMapping(value="/aaa",method=RequestMethod.GET)
+	public String toTestJqGrid(){
+		return "/Admin/testJqGrid";
+	}
+	
+	@RequestMapping(value="/saveEdit")
+	public @ResponseBody JqGridData<AlumniInfos> getSendData(@RequestParam("somename")String s){
+		UserDAO userDAO=new UserDAO();
+		userDAO.saveEdit(s);
+		return null;
 	}
 }
