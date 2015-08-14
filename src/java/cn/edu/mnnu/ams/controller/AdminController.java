@@ -20,46 +20,61 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import cn.edu.mnnu.ams.dao.UserDAO;
 import cn.edu.mnnu.ams.model.AdminUser;
 import cn.edu.mnnu.ams.model.AlumniInfos;
 import cn.edu.mnnu.ams.model.JqGridData;
 
 @Controller
 @RequestMapping("/Admin")
-public class AdminController extends SuperController{
+public class AdminController extends SuperController {
 
-	public AdminController(){
+	public AdminController() {
 		System.out.println("AdminController init success.");
 	}
-	/**
+
+	// -----------------------------------------------公共---------------------------------------------------
+	public boolean verify(HttpSession session) {
+		if (session.isNew()) return false;
+		Object roletype = session.getAttribute("roletype");
+		if (roletype == null || !roletype.toString().equals("admin")) return false;
+		return true;
+	}
+
+	@RequestMapping({ "header", "footer","selectExcel" })
+	public void justShow() {}
+
+	// -----------------------------------------------入口/主页------------------------------------------------------------------------
+	/*
 	 * 管理员主页 验证session的role元素，过滤用户输入，无则跳转到登陆 有则验证session的pwd元素，检验用户密码修改
 	 * 验证成功从DB获取该用户所有信息，显示主页面 验证失败跳转到登陆
-	 * 
-	 * @param session
-	 * @param request
-	 * @return
 	 */
 	@RequestMapping({ "/index", "" })
-	public String index(HttpSession session, HttpServletRequest request, Model m) {
-		Object roletype = session.getAttribute("roletype");
-		if (roletype == null || !roletype.toString().equals("admin")) return "redirect:/Public/login";
+	public String index(HttpSession session, HttpServletRequest request) {
+		if (verify(session) == false) return "redirect:/Public/login";
 		AdminUser au = adminDAO.getAllInfo(session.getAttribute("uid")
 				.toString());
-		if(au==null) return "redirect:/Public/login";
-		m.addAttribute("role", au.getRole());
-		m.addAttribute("name", au.getName());
+		if (au == null) return "redirect:/Public/login";
+		session.setAttribute("role", au.getRole());
+		session.setAttribute("name", au.getName());
 		return "/Admin/index";
 	}
 
-	/**
+	// -----------------------------------------------个人信息---------------------------------------------------------------------------
+
+	@RequestMapping("/myProfile")
+	public String myProfile(HttpSession session, Model m) {
+		String roletype = session.getAttribute("roletype").toString();
+		if (roletype == null || !roletype.toString().equals("admin")) return "redirect:/Public/login";
+		AdminUser au = adminDAO.getAllInfo(session.getAttribute("uid")
+				.toString());
+		m.addAttribute("role", au.getRole());
+		m.addAttribute("auth", au.getAuth());
+		m.addAttribute("name", au.getName());
+		return "/Admin/myProfile";
+	}
+
+	/*
 	 * 更改密码方法 检查新密码合法性(未完成) 验证旧密码 检验成功，更改密码，更新session的pwd元素
-	 * 
-	 * @param session
-	 * @param request
-	 * @param oldpwd
-	 * @param newpwd
-	 * @return
 	 */
 	@RequestMapping("/updatePwd")
 	public String updatePwd(HttpSession session, HttpServletRequest request,
@@ -76,26 +91,30 @@ public class AdminController extends SuperController{
 		return null;
 	}
 
-	/**
+	// -----------------------------------------------用户管理-------------------------------------------------------------------------
+
+	// 权限分配页面
+	@RequestMapping(value = "/authorityAssign", method = RequestMethod.GET)
+	public String toAuthorityAssign(HttpSession session) {
+		if (verify(session) == false) return "redirect:/Public/login";
+		return "/Admin/authorityAssign";
+	}
+
+	// -----------------------------------------------校友信息管理--------------------------------------------------------------------------
+	/*
 	 * 显示导入excel页面
-	 * 
-	 * @return
 	 */
 	@RequestMapping("/ExcelToMysql")
 	public String excelToMysql() {
 		return "/Admin/ExcelToMysql";
 	}
 
-	/**
+	/*
 	 * 导入excel处理 从request中读取上传文件file，获取输入流stream 判断上传文件类型，是*.xls则赋到Workbook对象
 	 * 对.xls进行处理 （未完成）
-	 * 
-	 * @param file
-	 * @return
-	 * @throws IOException
 	 */
 	@RequestMapping(value = "/ExcelToMysql", method = RequestMethod.POST)
-	public String excelToMysql(@RequestParam("excelFile") MultipartFile file)
+	public @ResponseBody String excelToMysql(@RequestParam("excelFile") MultipartFile file)
 			throws IOException {
 		InputStream stream = file.getInputStream();
 		HSSFWorkbook wb = null;
@@ -175,7 +194,7 @@ public class AdminController extends SuperController{
 				}
 				// 在ai.setXXX()前编写代码对该属性进行处理
 				switch (arr[celli]) {
-					case 0:
+					case 0: 
 						ai.setDept(value);
 						break;
 					case 1:
@@ -269,102 +288,79 @@ public class AdminController extends SuperController{
 		}
 		wb.close();
 		adminDAO.importAlumniInfos(list);
-		return "redirect:/Admin/ExcelToMysql";
+		return "OK";
 	}
 
-	@RequestMapping("/myProfile")
-	public String myProfile(HttpSession session, Model m) {
-		String roletype = session.getAttribute("roletype").toString();
-		if (roletype == null || !roletype.toString().equals("admin")) return "redirect:/Public/login";
-		AdminUser au = adminDAO.getAllInfo(session.getAttribute("uid")
-				.toString());
-		m.addAttribute("role", au.getRole());
-		m.addAttribute("auth", au.getAuth());
-		m.addAttribute("name", au.getName());
-		return "/Admin/myProfile";
-	}
-	
-	 /*
-     * 8-11新增
-     */
-	
-	//查询页面
-	@RequestMapping(value="/query",method=RequestMethod.GET)
-	public String toQuery(){
+	// 查询页面
+	@RequestMapping(value = "/query", method = RequestMethod.GET)
+	public String toQuery() {
 		return "/Admin/query";
 	}
-	
-	//字段显示选择页面
-	@RequestMapping(value="/selectFilter",method=RequestMethod.GET)
-	public String toSelectFilter(){
-		return "/Admin/selectFilter";
-	}
-	
-	//邮件管理
-	@RequestMapping(value="/emailsMenage")
-	public String toEmailMenage(){
-		return "/Admin/emailsMenage";
-	}
-	
-	//发送邮件
-	@RequestMapping(value="/sendEmails",method=RequestMethod.GET)
-	public String toSendEmails(){
-		return "/Admin/sendEmails";
-	}
-	
-	//定期发送邮件
-	@RequestMapping(value="/sendRegular",method=RequestMethod.GET)
-	public String toSendRegular(){
-		return "/Admin/sendRegular";
-	}
-	
-	//校友统计页面
-	@RequestMapping(value="/alumniStatistics",method=RequestMethod.GET)
-	public String toAlumniStatistics(){
-		return "/Admin/alumniStatistics";
-	}
-	
-	//权限分配页面
-	@RequestMapping(value="/authorityAssign",method=RequestMethod.GET)
-	public String toAuthorityAssign(){
-		return "/Admin/authorityAssign";
-	}
-	
-	//查询对话框
-	@RequestMapping(value="/queryDialog")
-	public String toQueryDialog(){
+
+	// 查询对话框
+	@RequestMapping(value = "/queryDialog")
+	public String toQueryDialog() {
 		return "/Admin/queryDialog";
 	}
-	
-	//jqgrid 读取数据
-	@RequestMapping(value="/jqgridAllDate")
-	public @ResponseBody JqGridData<AlumniInfos> loadList(@RequestParam("rows") String rows,@RequestParam("page") String page, AlumniInfos user){
-		JqGridData<AlumniInfos> ulist=new JqGridData<AlumniInfos>();
-		List<AlumniInfos> alumniList=new ArrayList<AlumniInfos>();
-		int rowsInt=Integer.parseInt(rows);
-		int pageInt=Integer.parseInt(page);
+
+	// jqgrid 读取数据
+	@RequestMapping(value = "/jqgridAllDate")
+	public @ResponseBody
+	JqGridData<AlumniInfos> loadList(@RequestParam("rows") String rows,
+			@RequestParam("page") String page, AlumniInfos user) {
+		JqGridData<AlumniInfos> ulist = new JqGridData<AlumniInfos>();
+		List<AlumniInfos> alumniList = new ArrayList<AlumniInfos>();
+		int rowsInt = Integer.parseInt(rows);
+		int pageInt = Integer.parseInt(page);
 		ulist.setPage(pageInt);
 		ulist.setRows(rowsInt);
-		UserDAO userDAO=new UserDAO();
-		alumniList=userDAO.getAllInfos();
-		int totalRecord=alumniList.size();
+		alumniList = userDAO.getAllInfos();
+		int totalRecord = alumniList.size();
 		ulist.setRecords(totalRecord);
-		int totalPage=totalRecord%rowsInt==0?totalRecord/rowsInt:totalRecord/rowsInt+1;
+		int totalPage = totalRecord % rowsInt == 0 ? totalRecord / rowsInt
+				: totalRecord / rowsInt + 1;
 		ulist.setTotal(totalPage);
 		ulist.setGridModel(alumniList);
 		return ulist;
-	}	
-	
-	//test
-	@RequestMapping(value="/aaa",method=RequestMethod.GET)
-	public String toTestJqGrid(){
-		return "/Admin/testJqGrid";
 	}
-	
-	@RequestMapping(value="/saveEdit")
-	public @ResponseBody JqGridData<AlumniInfos> getSendData(@RequestParam("somename")String s){
-		UserDAO userDAO=new UserDAO();
+
+	// 字段显示选择页面
+	@RequestMapping(value = "/selectFilter", method = RequestMethod.GET)
+	public String toSelectFilter() {
+		return "/Admin/selectFilter";
+	}
+
+	@RequestMapping(value = "/saveEdit")
+	public @ResponseBody
+	JqGridData<AlumniInfos> getSendData(@RequestParam("somename") String s) {
 		userDAO.saveEdit(s);
 		return null;
 	}
+
+	// 邮件管理
+	@RequestMapping(value = "/emailsMenage")
+	public String toEmailMenage() {
+		return "/Admin/emailsMenage";
+	}
+
+	// 发送邮件
+	@RequestMapping(value = "/sendEmails", method = RequestMethod.GET)
+	public String toSendEmails() {
+		return "/Admin/sendEmails";
+	}
+
+	// 定期发送邮件
+	@RequestMapping(value = "/sendRegular", method = RequestMethod.GET)
+	public String toSendRegular() {
+		return "/Admin/sendRegular";
+	}
+
+	// -----------------------------------------------校友统计-------------------------------------------------------------------------------
+	// 校友统计页面
+	@RequestMapping(value = "/alumniStatistics", method = RequestMethod.GET)
+	public String toAlumniStatistics() {
+		return "/Admin/alumniStatistics";
+	}
+	// -----------------------------------------------校友园地--------------------------------------------------------------------------------
+	// -----------------------------------------------系统维护--------------------------------------------------------------------------------
 }
