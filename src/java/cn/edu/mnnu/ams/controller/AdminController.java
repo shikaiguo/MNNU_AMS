@@ -41,7 +41,7 @@ public class AdminController extends SuperController {
 		return true;
 	}
 
-	@RequestMapping({ "header", "footer","import" })
+	@RequestMapping({ "header", "footer","import","query","conditionTemplate" })
 	public void justShow() {}
 
 	// -----------------------------------------------入口/主页------------------------------------------------------------------------
@@ -293,9 +293,9 @@ public class AdminController extends SuperController {
 	}
 
 	// 查询页面
-	@RequestMapping(value = "/query", method = RequestMethod.GET)
+	@RequestMapping(value = "/query2", method = RequestMethod.GET)
 	public String toQuery() {
-		return "/Admin/query";
+		return "/Admin/query2";
 	}
 
 	// 查询对话框
