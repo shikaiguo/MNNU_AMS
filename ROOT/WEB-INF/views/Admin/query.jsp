@@ -135,18 +135,18 @@
 						width : 120,
 						editable : true
 					}, {
-						name : 'province_from',
-						index : 'province_from',
+						name : 'provincefrom',
+						index : 'provincefrom',
 						width : 120,
 						editable : true
 					}, {
-						name : 'city_from',
-						index : 'city_from',
+						name : 'cityfrom',
+						index : 'cityfrom',
 						width : 120,
 						editable : true
 					}, {
-						name : 'district_from',
-						index : 'district_from',
+						name : 'districtfrom',
+						index : 'districtfrom',
 						width : 120,
 						editable : true
 					}, {
@@ -155,28 +155,28 @@
 						width : 120,
 						editable : true
 					}, {
-						name : 'gra_time',
-						index : 'gra_time',
+						name : 'gratime',
+						index : 'gratime',
 						width : 120,
 						editable : true
 					}, {
-						name : 'province_work',
-						index : 'province_work',
+						name : 'provincework',
+						index : 'provincework',
 						width : 120,
 						editable : true
 					}, {
-						name : 'city_work',
-						index : 'city_work',
+						name : 'citywork',
+						index : 'citywork',
 						width : 120,
 						editable : true
 					}, {
-						name : 'district_work',
-						index : 'district_work',
+						name : 'districtwork',
+						index : 'districtwork',
 						width : 120,
 						editable : true
 					}, {
-						name : 'work_unit',
-						index : 'work_unit',
+						name : 'workunit',
+						index : 'workunit',
 						width : 240,
 						editable : true
 					}, {
@@ -230,23 +230,23 @@
 						width : 120,
 						editable : true
 					}, {
-						name : 'accsoc1',
-						index : 'accsoc1',
+						name : 'assoc1',
+						index : 'assoc1',
 						width : 120,
 						editable : true
 					}, {
-						name : 'accsoc1_job',
-						index : 'accsoc1_job',
+						name : 'assoc1job',
+						index : 'assoc1job',
 						width : 100,
 						editable : true
 					}, {
-						name : 'accsoc2',
-						index : 'accsoc2',
+						name : 'assoc2',
+						index : 'assoc2',
 						width : 120,
 						editable : true
 					}, {
-						name : 'accsoc2_job',
-						index : 'accsoc2_job',
+						name : 'assoc2job',
+						index : 'assoc2job',
 						width : 120,
 						editable : true
 					} ];

@@ -13,7 +13,7 @@
 
 <title>My JSP 'personInfo.jsp' starting page</title>
 
-<link rel="stylesheet" type="text/css" href="css/admin.css">
+<link rel="stylesheet" type="text/css" href="css/common.css">
 <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css">
 <link type="text/css" rel="stylesheet" href="css/personInfo.css">
 <style type="text/css">

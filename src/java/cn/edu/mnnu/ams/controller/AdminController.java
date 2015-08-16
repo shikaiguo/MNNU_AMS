@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
@@ -40,7 +41,7 @@ public class AdminController extends SuperController {
 		return true;
 	}
 
-	@RequestMapping({ "header", "footer","selectExcel" })
+	@RequestMapping({ "header", "footer","import" })
 	public void justShow() {}
 
 	// -----------------------------------------------入口/主页------------------------------------------------------------------------
@@ -114,7 +115,7 @@ public class AdminController extends SuperController {
 	 * 对.xls进行处理 （未完成）
 	 */
 	@RequestMapping(value = "/ExcelToMysql", method = RequestMethod.POST)
-	public @ResponseBody String excelToMysql(@RequestParam("excelFile") MultipartFile file)
+	public @ResponseBody String excelToMysql(@RequestParam("excelFile") MultipartFile file,HttpServletResponse response)
 			throws IOException {
 		InputStream stream = file.getInputStream();
 		HSSFWorkbook wb = null;
@@ -122,8 +123,7 @@ public class AdminController extends SuperController {
 			wb = new HSSFWorkbook(stream);
 			stream.close();
 		} else {
-			System.out.println("目前只支持使用*.xls文件");
-			return null;
+			return "目前只支持使用*.xls文件";
 		}
 		HSSFSheet s1 = wb.getSheetAt(0);
 		String value = "";
@@ -133,7 +133,7 @@ public class AdminController extends SuperController {
 		int[] arr = new int[29];
 		if (row == null) {
 			wb.close();
-			return null;
+			return "表格内容出错，请先检查";
 		}
 		for (int celli = 0; celli < row.getLastCellNum(); celli++) {
 			HSSFCell cell = row.getCell(celli);
@@ -287,8 +287,9 @@ public class AdminController extends SuperController {
 			list.add(ai);
 		}
 		wb.close();
-		adminDAO.importAlumniInfos(list);
-		return "OK";
+		System.out.println(list.size());
+		//adminDAO.importAlumniInfos(list);
+		return "上传成功";
 	}
 
 	// 查询页面

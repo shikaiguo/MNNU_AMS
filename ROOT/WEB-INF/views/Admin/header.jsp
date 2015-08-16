@@ -9,8 +9,8 @@
 <html>
 <head>
 <base href="<%=basePath%>">
-
-<title>My JSP 'header.jsp' starting page</title>
+<link href="images/favicon.ico" rel="icon" type="image/x-icon">
+<title>${title}</title>
 <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="css/common.css">
 </head>
@@ -61,7 +61,7 @@
 							校友管理
 							<div class="pitem">
 								<div>
-									<a href="javascript:;" onclick="modalShow('Admin/selectExcel')">校友信息导入导出</a>
+									<a href="Admin/import">校友信息导入导出</a>
 								</div>
 								<div onclick="changePage('Admin/query')">校友信息查询</div>
 								<div>校友信息维护</div>
