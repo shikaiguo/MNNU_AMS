@@ -171,13 +171,16 @@
 	padding:5px 0 ;
 	text-align:center;
 }
+.modal-content .content{
+	margin:auto;
+}
 .modal-content #condition>*{
 	margin:5px ;
 }
-.modal-content #condition select,.modal-content #condition input{
+.modal-content .content #condition select,.modal-content .content #condition input{
 	height:28px;
 }
-.modal-content #del{
+.modal-content .content #del{
 	margin:5px;
 	text-align:center;
 	height:28px;
@@ -187,12 +190,12 @@
 	border-radius:5px;
 	color:#f00;
 }
-.modal-content #del:hover{
+.modal-content .content #del:hover{
 	color:#fff;
 	background-color:#f00;
 	cursor:pointer;
 }
-.modal-content #add{
+.modal-content .content #add{
 	margin:5px;
 	text-align:center;
 	height:28px;
@@ -203,14 +206,15 @@
 	border-radius:5px;
 	color:#090;
 }
-.modal-content #add:hover{
+.modal-content .content #add:hover{
 	color:#fff;
 	background:#090;
+	cursor:pointer;
 }
-.modal-content hr{
+.modal-content  hr{
 	margin:0;
 }
-.modal-content .submit{
+.modal-content  #submit{
 	float:right;
 	margin:5px;
 }

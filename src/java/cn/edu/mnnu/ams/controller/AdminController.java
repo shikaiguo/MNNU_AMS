@@ -41,7 +41,8 @@ public class AdminController extends SuperController {
 		return true;
 	}
 
-	@RequestMapping({ "header", "footer","import","query","conditionTemplate" })
+	@RequestMapping({ "header", "footer", "import", "query",
+			"conditionTemplate" })
 	public void justShow() {}
 
 	// -----------------------------------------------入口/主页------------------------------------------------------------------------
@@ -115,8 +116,9 @@ public class AdminController extends SuperController {
 	 * 对.xls进行处理 （未完成）
 	 */
 	@RequestMapping(value = "/ExcelToMysql", method = RequestMethod.POST)
-	public @ResponseBody String excelToMysql(@RequestParam("excelFile") MultipartFile file,HttpServletResponse response)
-			throws IOException {
+	public @ResponseBody
+	String excelToMysql(@RequestParam("excelFile") MultipartFile file,
+			HttpServletResponse response) throws IOException {
 		InputStream stream = file.getInputStream();
 		HSSFWorkbook wb = null;
 		if (file.getContentType().equals("application/vnd.ms-excel")) {
@@ -194,7 +196,7 @@ public class AdminController extends SuperController {
 				}
 				// 在ai.setXXX()前编写代码对该属性进行处理
 				switch (arr[celli]) {
-					case 0: 
+					case 0:
 						ai.setDept(value);
 						break;
 					case 1:
@@ -288,7 +290,7 @@ public class AdminController extends SuperController {
 		}
 		wb.close();
 		System.out.println(list.size());
-		//adminDAO.importAlumniInfos(list);
+		// adminDAO.importAlumniInfos(list);
 		return "上传成功";
 	}
 
@@ -305,17 +307,29 @@ public class AdminController extends SuperController {
 	}
 
 	// jqgrid 读取数据
-	@RequestMapping(value = "/jqgridAllDate")
+	@RequestMapping(value = "/jqgridAllData")
 	public @ResponseBody
 	JqGridData<AlumniInfos> loadList(@RequestParam("rows") String rows,
-			@RequestParam("page") String page, AlumniInfos user) {
+			@RequestParam("page") String page, @RequestParam("val") String val,
+			AlumniInfos user, HttpServletRequest request) {
 		JqGridData<AlumniInfos> ulist = new JqGridData<AlumniInfos>();
 		List<AlumniInfos> alumniList = new ArrayList<AlumniInfos>();
 		int rowsInt = Integer.parseInt(rows);
 		int pageInt = Integer.parseInt(page);
 		ulist.setPage(pageInt);
 		ulist.setRows(rowsInt);
-		alumniList = userDAO.getAllInfos();
+		if(val.equals("none"))
+			return ulist;
+		System.out.println(val);
+		if(val.equals("all"))val="1=1";
+		else if(val.lastIndexOf("&")==val.length()-1)val=val.substring(0,val.length()-1);
+		val = val == null ? "1=1" : val.replace("&", " AND ");
+		alumniList = adminDAO.queryAlumniInfos(val);
+		if (alumniList != null) {
+			for (int i = 0; i < alumniList.size(); i++) {
+				System.out.println(alumniList.get(i).getSname());
+			}
+		}
 		int totalRecord = alumniList.size();
 		ulist.setRecords(totalRecord);
 		int totalPage = totalRecord % rowsInt == 0 ? totalRecord / rowsInt
