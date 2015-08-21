@@ -86,7 +86,7 @@
 			page : page
 		}).trigger("reloadGrid");
 	}
-
+/*
 	//查询对话框
 	$("#query").click(function() {
 		BootstrapDialog.show({
@@ -107,7 +107,7 @@
 			} ]
 		});
 	});
-
+*/
 	//字段显示选择对话框
 	$("#selectFilter").click(function() {
 		BootstrapDialog.show({

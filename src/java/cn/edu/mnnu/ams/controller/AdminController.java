@@ -372,9 +372,14 @@ public class AdminController extends SuperController {
 
 	// -----------------------------------------------校友统计-------------------------------------------------------------------------------
 	// 校友统计页面
-	@RequestMapping(value = "/alumniStatistics", method = RequestMethod.GET)
+	@RequestMapping(value = {"/alumniStatistics","/statistics"}, method = RequestMethod.GET)
 	public String toAlumniStatistics() {
-		return "/Admin/alumniStatistics";
+		System.out.println(adminDAO.getFromStatisticsAll());
+		return "/Admin/statistics";
+	}
+	@RequestMapping(value="/getFromStatisticsAll",method=RequestMethod.POST)
+	public @ResponseBody String getFromStatisticsAll(){
+		return adminDAO.getFromStatisticsAll();
 	}
 	// -----------------------------------------------校友园地--------------------------------------------------------------------------------
 	// -----------------------------------------------系统维护--------------------------------------------------------------------------------

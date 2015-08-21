@@ -16,4 +16,8 @@ public interface IAdminDAO {
 	public void importAlumniInfos(List<AlumniInfos> list) ;
 	//从alumni_infos表 按条件condition查询符合对象列表，返回List<AlumniInfos>对象(包含size=0)
 	public List<AlumniInfos> queryAlumniInfos(String condition);
+	//获取校友表中校友的各项统计
+	public String getFromStatisticsAll();
+	public String getFromStatisticsCondition(String condition);
+	//public String currentAllStatistics();
 }

@@ -171,10 +171,12 @@
 	padding:5px 0 ;
 	text-align:center;
 }
-.modal-content .content{
+.modal-content .content>*{
 	margin:auto;
+	left:0;right:0;top:0;bottom:0;
+	position:relative;
 }
-.modal-content #condition>*{
+.modal-content #condition>*,.modal-content #file{
 	margin:5px ;
 }
 .modal-content .content #condition select,.modal-content .content #condition input{
@@ -196,15 +198,15 @@
 	cursor:pointer;
 }
 .modal-content .content #add{
-	margin:5px;
+	margin:5px auto;
 	text-align:center;
 	height:28px;
 	line-height:26px;
 	width:28px;
 	border:1px solid #090;
-	top:0;
 	border-radius:5px;
 	color:#090;
+	display:block;
 }
 .modal-content .content #add:hover{
 	color:#fff;
@@ -214,9 +216,14 @@
 .modal-content  hr{
 	margin:0;
 }
-.modal-content  #submit{
+.modal-content  .content+hr+button{
 	float:right;
 	margin:5px;
+}
+.modal-content #tip{
+	color:gray;
+	margin:5px;
+	font-size:75%;
 }
 .btn-bh{
 	color:#fff;

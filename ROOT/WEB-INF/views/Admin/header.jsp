@@ -67,7 +67,7 @@
 							</div>
 						</div>
 						<div class="item">
-							校友管理
+							校友信息管理
 							<div class="pitem">
 								<div>
 									<a href="Admin/import">校友信息导入导出</a>
@@ -75,12 +75,14 @@
 								<div>
 									<a href="Admin/query">校友信息查询</a>
 								</div>
-								<div onclick="changePage('Admin/query2')">校友信息查询2</div>
 								<div>校友信息维护</div>
 								<div onclick="changePage('Admin/emailsMenage')">邮件推送</div>
 							</div>
 						</div>
-						<div class="item" onclick="changePage('Admin/alumniStatistics')">校友统计</div>
+						<div class="item">
+							<a href="Admin/statistics">校友统计</a>
+						</div>
+						<!-- <div class="item" onclick="changePage('Admin/alumniStatistics')">校友统计2</div>-->
 						<div class="item">校友园地</div>
 						<div class="item">
 							系统维护
