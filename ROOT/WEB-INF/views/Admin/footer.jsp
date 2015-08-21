@@ -10,7 +10,7 @@
 
 <div class="modal fade modal-bh" role="dialog">
 	<div class="modal-dialog">
-		<div class="modal-content">载入中...</div>
+	<div class="modal-content">载入中...</div>
 	</div>
 </div>
 </div>

@@ -318,7 +318,7 @@ public class AdminController extends SuperController {
 		int pageInt = Integer.parseInt(page);
 		ulist.setPage(pageInt);
 		ulist.setRows(rowsInt);
-		if(val.equals("none"))
+		if(val==null)
 			return ulist;
 		System.out.println(val);
 		if(val.equals("all"))val="1=1";
