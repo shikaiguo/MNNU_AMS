@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import cn.edu.mnnu.ams.model.AdminUser;
 import cn.edu.mnnu.ams.model.AlumniInfos;
+import cn.edu.mnnu.ams.model.CityStatistics;
 import cn.edu.mnnu.ams.model.JqGridData;
 
 @Controller
@@ -318,18 +319,18 @@ public class AdminController extends SuperController {
 		int pageInt = Integer.parseInt(page);
 		ulist.setPage(pageInt);
 		ulist.setRows(rowsInt);
-		if(val==null)
-			return ulist;
+		if (val == null) return ulist;
 		System.out.println(val);
-		if(val.equals("all"))val="1=1";
-		else if(val.lastIndexOf("&")==val.length()-1)val=val.substring(0,val.length()-1);
+		if (val.equals("all")) val = "1=1";
+		else if (val.lastIndexOf("&") == val.length() - 1) val = val.substring(
+				0, val.length() - 1);
 		val = val == null ? "1=1" : val.replace("&", " AND ");
 		alumniList = adminDAO.queryAlumniInfos(val);
-		if (alumniList != null) {
-			for (int i = 0; i < alumniList.size(); i++) {
-				System.out.println(alumniList.get(i).getSname());
-			}
-		}
+//		if (alumniList != null) {
+//			for (int i = 0; i < alumniList.size(); i++) {
+//				System.out.println(alumniList.get(i).getSname());
+//			}
+//		}
 		int totalRecord = alumniList.size();
 		ulist.setRecords(totalRecord);
 		int totalPage = totalRecord % rowsInt == 0 ? totalRecord / rowsInt
@@ -372,15 +373,28 @@ public class AdminController extends SuperController {
 
 	// -----------------------------------------------校友统计-------------------------------------------------------------------------------
 	// 校友统计页面
-	@RequestMapping(value = {"/alumniStatistics","/statistics"}, method = RequestMethod.GET)
+	@RequestMapping(value = { "/alumniStatistics", "/statistics" }, method = RequestMethod.GET)
 	public String toAlumniStatistics() {
-		System.out.println(adminDAO.getFromStatisticsAll());
+		//System.out.println(adminDAO.getFromStatisticsAll());
 		return "/Admin/statistics";
 	}
-	@RequestMapping(value="/getFromStatisticsAll",method=RequestMethod.POST)
-	public @ResponseBody String getFromStatisticsAll(){
-		return adminDAO.getFromStatisticsAll();
+
+	@RequestMapping(value = "/getFromStatisticsAll", method = RequestMethod.POST)
+	public @ResponseBody List<CityStatistics> getFromStatisticsAll() {
+		return adminDAO.getAreaStatisticsAll("AlumniFrom");
 	}
+
 	// -----------------------------------------------校友园地--------------------------------------------------------------------------------
 	// -----------------------------------------------系统维护--------------------------------------------------------------------------------
+	// 院系维护
+	@RequestMapping("deptSetting")
+	public void toDeptSetting(Model m) {
+		m.addAttribute("list", adminDAO.queryDept());
+	}
+	@RequestMapping(value="addNewDept",method=RequestMethod.POST)
+	public @ResponseBody String addNewDept(@RequestParam("id") String id,@RequestParam("name") String name){
+		adminDAO.addDept(id,name);
+		return "1";
+		
+	}
 }

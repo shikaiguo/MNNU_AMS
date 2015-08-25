@@ -87,6 +87,15 @@
 						<div class="item">
 							系统维护
 							<div class="pitem">
+								<%
+									if (role.equals("超级管理员")) {
+								%>
+								<div>
+									<a href="Admin/deptSetting">院系设置</a>
+								</div>
+								<%
+									}
+								%>
 								<div>数据备份</div>
 								<div>数据恢复</div>
 								<div>日志管理</div>

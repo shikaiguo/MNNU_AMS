@@ -78,4 +78,8 @@
 		<property name="districtname" column="district_name" />
 		<property name="cityid" />
 	</class>
+	<class name="Dept" table="dept">
+		<id name="id" column="dept_id"/>
+		<property name="name" column="dept_name" />
+	</class>
 </hibernate-mapping>

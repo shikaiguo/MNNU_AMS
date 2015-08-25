@@ -12,9 +12,12 @@
 			<option>工作地区</option>
 			<option>新增校友</option>
 		</select>
-		<div id="detail"></div>
+		<span id="detail"></span>
 		<button class="btn btn-primary">统计</button>
 		<div id="res"></div>
+		<div id="main" style="height:700px"></div>
 	</div>
 </div>
 <%@ include file="footer.jsp"%>
+<script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+<script src="js/statistics.js"></script>

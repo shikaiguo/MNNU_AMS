@@ -21,7 +21,7 @@
 </head>
 <body>
 	<div class="container">
-		<div class="row head">
+		<div class="row header">
 			<div class="col-xs-12">
 				<img src="images/head.png" class="banner">
 			</div>

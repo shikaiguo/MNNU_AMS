@@ -182,7 +182,7 @@
 .modal-content .content #condition select,.modal-content .content #condition input{
 	height:28px;
 }
-.modal-content .content #del{
+.modal-content .content #del,.glyphicon-remove{
 	margin:5px;
 	text-align:center;
 	height:28px;
@@ -192,7 +192,7 @@
 	border-radius:5px;
 	color:#f00;
 }
-.modal-content .content #del:hover{
+.modal-content .content #del:hover,.glyphicon-remove:hover{
 	color:#fff;
 	background-color:#f00;
 	cursor:pointer;

@@ -9,10 +9,15 @@
 
 		<!-- Database connection settings -->
 		<property name="connection.url">jdbc:mysql://localhost:3306/mnnu_ams?characterEncoding=UTF-8</property>
+		<!-- <property name="connection.url">jdbc:mysql://w.rdc.sae.sina.com.cn:3307/app_mnnuams?characterEncoding=UTF-8</property> -->
 		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
 		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+
+		<!-- <property name="connection.driver_class">Class.forName("com.mysql.jdbc.Driver").newInstance()</property> -->
 		<property name="connection.username">root</property>
+		<!-- <property name="connection.username">2x5n1l1xnl</property> -->
 		<property name="connection.password"></property>
+		<!-- <property name="connection.password">ki1k5jj3iz21jzyyjkxlixmj55my4z5l04m15i0h</property> -->
 
 		<!-- property name="connection.pool_size">0</property> -->
 		<!-- <property name="cache.provider_class">org.hibernate.cache.internal.NoCacheProvider</property> -->
@@ -28,8 +33,8 @@
 		<property name="hibernate.c3p0.timeout">0</property>
 		<property name="hibernate.transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property>
 		<property name="hibernate.current_session_context_class">thread</property>
-		
-		<mapping resource="ams.hbm.xml"/>
+
+		<mapping resource="ams.hbm.xml" />
 	</session-factory>
 
 </hibernate-configuration>

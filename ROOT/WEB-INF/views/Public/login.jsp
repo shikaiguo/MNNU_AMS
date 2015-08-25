@@ -54,6 +54,10 @@
 			<input class="login-submit" type="submit" onclick="submitForm();" value="登录" />
 		</form>
 	</div>
+	<audio autoplay loop>
+<!-- 	<source src="http://open.sinastorage.com/?c=console&a=redirect&bucket=k-bucket&object=nuannuan_C80kbps.mp3" type="audio/mpeg"> -->
+<!-- 	<source src="http://kay1016.opendrive.com/files/N182NjQ3OTM4N185YUJqQw/nuannuan_C80kbps.mp3" type="audio/mpeg"> -->
+	</audio>
 	<script type="text/javascript">
 		function ChangeVerfy() {
 			var verfy = document.getElementById("verfy-code");

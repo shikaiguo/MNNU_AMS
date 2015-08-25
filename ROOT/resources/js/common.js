@@ -158,46 +158,4 @@
 			}
 		});
 	}
-	/*
-	function ajaxContent(url) {
-		$('.content').load(url);
-	}
-	function updatePwd() {
-		var newpwd = document.getElementById("newpwd").value;
-		var newpwd2 = document.getElementById("newpwd2").value;
-		if (newpwd == newpwd2) {
-			$('#updatepwd').submit();
-		}
-	}*/
-	$('#statistics #condition').change(function(){
-		var s="";
-		switch(parseInt($(this).find("option:selected").index())){
-			case 1:s="asdf";break;
-			case 2:break;
-			case 3:break;
-			//case 4:break;
-			case 5:break;
-			case 6:break;
-			default:s="";
-		}
-		$('#statistics #detail').html(s);
-	});
-	$('#statistics button').click(function(){
-		switch(parseInt($(this).parent().find("option:selected").index())){
-			case 0:alert("请选择统计条件");break;
-			case 4:
-				$.ajax({
-					url:"Admin/getFromStatisticsAll",
-					type:"post",
-					dataType:"json",
-					success:function(data){
-						$("#res").html(data);
-					},
-					error:function(){
-						alert("请求失败");
-					}
-				});
-				break;
-			default:alert("未完成");
-		}
-	});
+
