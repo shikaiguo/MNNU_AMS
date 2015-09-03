@@ -6,16 +6,16 @@
 		<select id="condition">
 			<option>请选择条件</option>
 			<option>行业</option>
-			<option>院级</option>
-			<option>学历</option>
+			<option>院系</option>
 			<option>生源地</option>
 			<option>工作地区</option>
 			<option>新增校友</option>
 		</select>
 		<span id="detail"></span>
-		<button class="btn btn-primary">统计</button>
+		<button id="statisticsbtn" class="btn btn-primary">统计</button>
+		<button id="print" class="btn btn-primary" onclick='javascript:window.print()'>打印</button>
 		<div id="res"></div>
-		<div id="main" style="height:700px"></div>
+		<div id="main"></div>
 	</div>
 </div>
 <%@ include file="footer.jsp"%>

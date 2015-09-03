@@ -11,8 +11,9 @@
 <base href="<%=basePath%>">
 <title>${title}</title>
 <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="css/bootstrap-dialog.min.css">
 <link rel="stylesheet" type="text/css" href="css/jquery-ui.min.css">
+<link rel="stylesheet" type="text/css" href="css/jquery-ui.structure.min.css">
+<link rel="stylesheet" type="text/css" href="css/jquery-ui.theme.min.css">
 <link rel="stylesheet" type="text/css" href="jqGrid/themes/smoothness/jquery.ui.core.css">
 <link rel="stylesheet" type="text/css" href="jqGrid/themes/smoothness/jquery.ui.theme.css">
 <link rel="stylesheet" type="text/css" href="jqGrid/themes/ui.jqgrid.css">
@@ -29,19 +30,19 @@
 			</div>
 			<div class="col-xs-12">
 				<div class="nav">
-					<!-- 用户信息 -->
-					<div class="nav-name">
-						&nbsp;&nbsp;${role }：${name }&nbsp;
-						<span class="glyphicon glyphicon-chevron-down"> </span>
-						&nbsp;
-						<div class="pitem">
-							<div>
-								<a title="个人信息" href="javascript:" onclick="modalShow('Admin/myProfile')">个人信息</a>
-							</div>
-							<div>
+					<div class="nav-name dropdown">
+						<button class="dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+							${role }：${name}
+							<span class="glyphicon glyphicon-chevron-down"> </span>
+						</button>
+						<ul class="dropdown-menu" aria-labelledby="dropdownMenu">
+							<li>
+								<a href="javascript:;" onclick="modalShow('Admin/myProfile')" data-toggle="modal" data-target=".modal-bh">个人信息</a>
+							</li>
+							<li>
 								<a href="logout">注销</a>
-							</div>
-						</div>
+							</li>
+						</ul>
 					</div>
 					<div class="menu-button glyphicon glyphicon-menu-hamburger"></div>
 					<div class="menu">
@@ -69,13 +70,15 @@
 						<div class="item">
 							校友信息管理
 							<div class="pitem">
-								<div>
-									<a href="Admin/import">校友信息导入导出</a>
-								</div>
+								<!-- <div>
+									<a href="Admin/importExcel">校友信息导入</a>
+								</div> -->
 								<div>
 									<a href="Admin/query">校友信息查询</a>
 								</div>
-								<div>校友信息维护</div>
+								<div>
+									<a href="Admin/maintain">校友信息维护</a>
+								</div>
 								<div onclick="changePage('Admin/emailsMenage')">邮件推送</div>
 							</div>
 						</div>

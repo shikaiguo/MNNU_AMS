@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd" [
+<!ENTITY contextInclude SYSTEM "org/springframework/web/context/WEB-INF/contextInclude.xml">
+]>
+
+<beans>
+	<bean id="adminDao" class="cn.edu.mnnu.ams.dao.AdminDAO">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="userDao" class="cn.edu.mnnu.ams.dao.UserDAO">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<bean id="amsServiceBase" class="cn.edu.mnnu.ams.service.AmsService">
+		<property name="adminDao" ref="adminDao"></property>
+		<property name="userDao" ref="userDao"></property>
+	</bean>
+
+	<bean id="amsService" parent="transactionBese">
+		<property name="target" ref="amsServiceBase"></property>
+	</bean>
+
+</beans>

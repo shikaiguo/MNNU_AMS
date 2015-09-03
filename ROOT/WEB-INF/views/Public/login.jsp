@@ -28,16 +28,81 @@
 <head>
 <base href="<%=basePath%>">
 <title>登录-校友信息管理系统</title>
-<link rel="stylesheet" type="text/css" href="css/login.css">
+<style>
+* {
+	margin: 0;
+	padding: 0;
+}
+
+.login-div {
+	max-width: 540px;
+	border: 1px solid #ccc;
+	height: 276px;
+	margin: auto;
+	position: absolute !important;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	border-radius: 0 0 10px 10px;
+	box-shadow: 0 4px 10px #ccc;
+}
+
+.title {
+	width: 100%;
+	height: 48px;
+	background-color: #a72b29;
+	margin: 0 auto;
+	text-align: center;
+	line-height: 48px;
+	color: #fff;
+}
+
+.login-div form{
+	margin: 0 auto;
+	width: 320px;
+	height: 230px;
+}
+
+.form-input {
+	margin: 12px auto;
+	width: 160px;
+	height: 30px;
+	text-align: left;
+	line-height: 30px;
+}
+
+.form-input-code {
+	margin: 12px auto;
+	width: 80px;
+	height: 30px;
+	text-align: left;
+	line-height: 30px;
+	vertical-align: center;
+}
+
+.code-img {
+	width: 73px;
+	height: 30px;
+	vertical-align: middle;
+}
+
+.login-submit {
+	float: right;
+	width: 100px;
+	height: 30px;
+	margin: 12px auto;
+}
+</style>
 </head>
 <body>
 	<div class="session-info">
 		Session id:<%=session.getId()%><br>
 		role:${roletype}
 	</div>
-	<div class="login-size col-xs-12 col-sm-6 col-sm-offset-3">
-		<div class="top-border">校友信息管理系统--登录</div>
-		<form action="Public/login" id="login-form" method="post">
+	<div class="login-div">
+		<div class="title">校友信息管理系统--登录</div>
+		<form action="Public/login" id="login-form" method="post" onsubmit="return checkInfo();">
 			<label>用户名：</label>
 			<input name="uid" class="form-input" type="text" id="uid" value="${uid }">
 			<a href="Register">注册账号</a>
@@ -48,23 +113,33 @@
 			<br>
 			<label>验证码：</label>
 			<input class="form-input-code" type="text" id="vcode">
-			<img id="verfy-code" class="code-img" onclick="ChangeVerfy();" src="VerifyCodeServlet">
-			<a href="javascript:void(0);" onclick="ChangeVerfy();">换一张</a>
-			<br>
+			<img id="verify-code" class="code-img" onclick="ChangeVerify();" src="VerifyCodeServlet">
+			<a href="javascript:;" onclick="ChangeVerfy();">换一张</a>
 			<input class="login-submit" type="submit" onclick="submitForm();" value="登录" />
 		</form>
 	</div>
-	<audio autoplay loop>
-<!-- 	<source src="http://open.sinastorage.com/?c=console&a=redirect&bucket=k-bucket&object=nuannuan_C80kbps.mp3" type="audio/mpeg"> -->
-<!-- 	<source src="http://kay1016.opendrive.com/files/N182NjQ3OTM4N185YUJqQw/nuannuan_C80kbps.mp3" type="audio/mpeg"> -->
-	</audio>
 	<script type="text/javascript">
-		function ChangeVerfy() {
-			var verfy = document.getElementById("verfy-code");
-			verfy.src = "VerifyCodeServlet?a=" + new Date().getTime();
+		function checkInfo() {
+			var str = document.getElementById("uid").value;
+			if (str == "") {
+				alert("用户名不能为空");
+				return false;
+			}
+			str = document.getElementById("pwd").value;
+			if (str == "") {
+				alert("密码不能为空");
+				return false;
+			}
+			str = document.getElementById("vcode").value;
+			if (str == "") {
+				//alert("请填写验证码");
+				//return false;
+			}
+			return true;
 		}
-		function submitForm() {
-			document.getElementById("login-form").submit();
+		function ChangeVerify() {
+			var verfy = document.getElementById("verify-code");
+			verfy.src = "VerifyCodeServlet?a=" + new Date().getTime();
 		}
 	</script>
 </body>
