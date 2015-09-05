@@ -19,5 +19,5 @@
 	</div>
 </div>
 <%@ include file="footer.jsp"%>
-<script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+<script src="js/echarts.js"></script>
 <script src="js/statistics.js"></script>

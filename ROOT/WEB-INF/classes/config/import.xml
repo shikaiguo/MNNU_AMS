@@ -4,16 +4,12 @@
 ]>
 
 <beans>
-	<bean id="adminDao" class="cn.edu.mnnu.ams.dao.AdminDAO">
-		<property name="sessionFactory" ref="sessionFactory"></property>
-	</bean>
-	<bean id="userDao" class="cn.edu.mnnu.ams.dao.UserDAO">
+	<bean id="amsDao" class="cn.edu.mnnu.ams.dao.AmsDAO">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 
 	<bean id="amsServiceBase" class="cn.edu.mnnu.ams.service.AmsService">
-		<property name="adminDao" ref="adminDao"></property>
-		<property name="userDao" ref="userDao"></property>
+		<property name="amsDao" ref="amsDao"></property>
 	</bean>
 
 	<bean id="amsService" parent="transactionBese">

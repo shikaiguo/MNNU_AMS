@@ -37,21 +37,18 @@
 	<div class="row">
 		<div class="col-xs-12">
 			<div class="my-dialog">
-				<div class="title">个人信息${uid }</div>
+				<div class="title">个人信息</div>
 				<div class="content">
 					帐号：
-					<input value="${uid }" readonly>
+					<input value="${user.username }" readonly>
 					<br>
 					角色：
-					<input value="${role }" readonly>
-					<br>
-					权限：
-					<input value="${auth }" readonly>
+					<input value="${user.role }" readonly>
 					<br>
 					<hr>
 					<form action="/Admin/saveProfile" method="post">
 						用户名：
-						<input name="name" value="${name }">
+						<input name="name" value="${user.username }">
 						<br>
 						原密码：
 						<input id="oldpwd" name="oldpwd" type="password">

@@ -272,7 +272,7 @@
 	margin: 0;
 }
 
-.modal-content  .content+hr+button {
+.modal-content  .content+hr +button,.modal-content  .content+hr +button+button {
 	float: right;
 	margin: 5px;
 }

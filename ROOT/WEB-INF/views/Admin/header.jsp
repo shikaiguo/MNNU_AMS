@@ -32,12 +32,12 @@
 				<div class="nav">
 					<div class="nav-name dropdown">
 						<button class="dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-							${role }：${name}
+							管理员：${username}
 							<span class="glyphicon glyphicon-chevron-down"> </span>
 						</button>
 						<ul class="dropdown-menu" aria-labelledby="dropdownMenu">
 							<li>
-								<a href="javascript:;" onclick="modalShow('Admin/myProfile')" data-toggle="modal" data-target=".modal-bh">个人信息</a>
+								<a href="javascript:;" onclick="modalShow('Public/updatePwd')" data-toggle="modal" data-target=".modal-bh">修改密码</a>
 							</li>
 							<li>
 								<a href="logout">注销</a>
@@ -54,12 +54,12 @@
 							用户管理
 							<div class="pitem">
 								<%
-									String role = session.getAttribute("role").toString();
-									if (role.equals("超级管理员")) {
+									//String role = session.getAttribute("role").toString();
+									//if (role!=null&&role.equals("超级管理员")) {
 								%>
 								<div>子管理员</div>
 								<%
-									}
+									//}
 								%>
 								<div>用户</div>
 								<div>
@@ -91,13 +91,13 @@
 							系统维护
 							<div class="pitem">
 								<%
-									if (role.equals("超级管理员")) {
+									//if (role.equals("超级管理员")) {
 								%>
 								<div>
 									<a href="Admin/deptSetting">院系设置</a>
 								</div>
 								<%
-									}
+									//}
 								%>
 								<div>数据备份</div>
 								<div>数据恢复</div>

@@ -14,7 +14,7 @@
 	</div>
 	<!-- jqGrid -->
 	<div>
-		<code id="show">查询条件:无</code>
+		<code id="show">查询条件:全部</code>
 	</div>
 	<table class="table" id="gridTable"></table>
 	<div id="grid-Pager"></div>

@@ -17,10 +17,11 @@ public interface IAdminDAO {
 	String getFiledInfo(String infoid,String filed);
 	void setFiledInfo(String infoid,String filed,String content);
 	int getCityStatisticsCount(int cityid,String table);
-	List<String> getJobArray(String dept);
-	int getJobCount(String job,String dept);
+	List<String> getProfessionArray(String dept);
+	int getProfessionCount(String job,String dept);
 	List<String> getDeptArray();
 	int getDeptCount(String dept);
 	List<Dept> getDept();
 	void addDept(String id, String name);
+	void addAlumniInfos(List<AlumniInfos> list);
 }

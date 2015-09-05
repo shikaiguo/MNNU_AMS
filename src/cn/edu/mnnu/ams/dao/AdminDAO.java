@@ -83,17 +83,17 @@ public class AdminDAO implements IAdminDAO {
 	}
 
 	@Override
-	public List<String> getJobArray(String dept) {
-		String hql="SELECT duty FROM AlumniInfos ";
+	public List<String> getProfessionArray(String dept) {
+		String hql="SELECT profession FROM AlumniInfos ";
 		if(!dept.equals("所有"))
 			hql+="WHERE dept='"+dept+"' ";
-		hql+=" GROUP BY duty";
+		hql+=" GROUP BY profession";
 		Session session = sessionFactory.getCurrentSession();
 		return session.createQuery(hql).list();
 	}
 	@Override
-	public int getJobCount(String job,String dept) {
-		String hql="SELECT COUNT(*) FROM AlumniInfos WHERE duty='"+job+"'";
+	public int getProfessionCount(String job,String dept) {
+		String hql="SELECT COUNT(*) FROM AlumniInfos WHERE profession='"+job+"'";
 		if(!dept.equals("所有"))
 			hql+=" AND dept='"+dept+"'";
 		Session session = sessionFactory.getCurrentSession();
@@ -128,5 +128,40 @@ public class AdminDAO implements IAdminDAO {
 		d.setName(name);
 		Session session=sessionFactory.getCurrentSession();
 		session.save(d);
+	}
+
+	@Override
+	public void addAlumniInfos(List<AlumniInfos> list) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "";
+		for (int i = 0; i < list.size(); i++) {
+			AlumniInfos ai = list.get(i);
+			// 查重
+			hql = "FROM AlumniInfos ai  WHERE ai.sno='" + ai.getSno()
+					+ "' AND ai.sname='" + ai.getSname() + "' AND ai.dept='"
+					+ ai.getDept() + "'";
+			int ii = session.createQuery(hql).list().size();
+			if (ii == 0) {
+				session.save(ai);
+				/*
+				AlumniFrom af=new AlumniFrom();
+				AlumniWork aw=new AlumniWork();
+				af.setId(ai.getId());
+				af.setProvinceid(new Func().getProvinceID(ai.getProvincefrom()));
+				af.setCityid(new Func().getCityID(ai.getCityfrom()));
+				af.setDistrictid(new Func().getDistrictID(ai.getDistrictfrom()));
+				
+				aw.setId(ai.getId());
+				aw.setProvinceid(new Func().getProvinceID(ai.getProvincework()));
+				aw.setCityid(new Func().getCityID(ai.getCitywork()));
+				aw.setDistrictid(new Func().getDistrictID(ai.getDistrictwork()));
+				session.saveOrUpdate(af);
+				session.saveOrUpdate(aw);*/
+			}
+			if (i % 50 == 0) {
+				session.flush();
+				session.clear();
+			}
+		}
 	}
 }

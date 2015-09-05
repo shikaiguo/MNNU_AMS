@@ -1,13 +1,13 @@
 require.config({
 	paths : {
-		echarts : 'http://echarts.baidu.com/build/dist'
+		echarts : 'js'
 	}
 });
 $('#statistics #condition').change(function() {
 	var s = "";
 	switch (parseInt($(this).find("option:selected").index())) {
 		case 1:
-			s+="学院选择：<select id=\"seldept\"><option>所有</option><option>艺术学院</option><option>计算机学院</option></select>";
+			s+="学院选择：<select id=\"seldept\"><option>所有</option><option>文学院</option><option>外国语学院</option><option>法学院</option><option>数学与统计学院</option><option>物理与信息工程学院</option><option>化学与环境学院</option><option>历史与社会发展学院</option><option>计算机学院</option><option>教育科学学院</option><option>体育学院</option><option>经济学院</option><option>管理学院</option><option>生物科学与技术学院</option><option>艺术学院</option><option>新闻传播学院</option><option>马克思主义学院</option></select>";
 			break;
 		default:
 			s = "";
@@ -24,12 +24,12 @@ $('#statistics #statisticsbtn').click(function() {
 			var dept=$('#statistics #seldept').find("option:selected").text();
 			var jobs="";
 			$.ajax({
-				url:'Admin/getJobType/'+dept,type:'post',dataType:'json',success:function(res){
+				url:'Admin/getProfessionType/'+dept,type:'post',dataType:'json',success:function(res){
 					jobs=res;
 				}
 			});
 			$.ajax({
-				url : 'Admin/getJobStatistics/'+dept, type : 'post', dataType : 'json', success : function(res) {
+				url : 'Admin/getProfessionStatistics/'+dept, type : 'post', dataType : 'json', success : function(res) {
 					require([ 'echarts', 'echarts/chart/pie','echarts/chart/funnel' ], function(ec) {
 						var myChart = ec.init(document.getElementById('main'));
 						var option = {
@@ -77,7 +77,7 @@ $('#statistics #statisticsbtn').click(function() {
 							}, tooltip : {
 								trigger : 'item', formatter : "{a} <br/>{b} : {c} ({d}%)"
 							}, legend : {
-								orient : 'vertical', x : 'left', data : [ '文学院', '外国语学院', '法学与公共管理学院', '数学与统计学院', '物理与信息工程学院', '化学与环境学院', '历史与社会发展学院', '计算机学院', '教育科学学院', '体育学院', '经济学院', '管理学院', '生物科学与技术学院', '艺术学院', '新闻传播学院', '马克思主义学院' ]
+								orient : 'vertical', x : 'left', data : [ '文学院', '外国语学院', '法学院', '数学与统计学院', '物理与信息工程学院', '化学与环境学院', '历史与社会发展学院', '计算机学院', '教育科学学院', '体育学院', '经济学院', '管理学院', '生物科学与技术学院', '艺术学院', '新闻传播学院', '马克思主义学院' ]
 							}, toolbox : {
 								show : true, feature : {
 									mark : {
@@ -112,12 +112,19 @@ $('#statistics #statisticsbtn').click(function() {
 				fw = "getWorkStatisticsAll";
 			$.ajax({
 				url : "Admin/" + fw, type : "post", dataType : "json", success : function(res) {
-					require([ 'echarts', 'echarts/chart/map' ], function(ec) {
+					require([ 'echarts', 'echarts/chart/map'], function(ec) {
 						var myChart = ec.init(document.getElementById('main'));
+						fw=(fw=="getFromStatisticsAll")?"生源地":"工作地";
 						var option = {
+							title : {
+								text : '毕业生'+fw+'统计', subtext : '闽南师范大学', x : 'center'
+							}, legend : {
+								orient : 'vertical', x : 'left', data :[res[0].name+":"+res[0].value]
+							},
 							tooltip : {
-								trigger : 'item'
-							}, toolbox : {
+								trigger : 'item',
+							}, 
+							toolbox : {
 								show : true, orient : 'vertical', x : 'right', y : 'center', feature : {
 									mark : {
 										show : true
@@ -125,13 +132,22 @@ $('#statistics #statisticsbtn').click(function() {
 										show : true, readOnly : false
 									}
 								}
-							}, series : [ {
+							},series : [ {
 								tooltip : {
-									trigger : 'item', formatter : '{b}'
-								}, name : '选择器', type : 'map', mapType : 'china', mapLocation : {
+									trigger : 'item', formatter : function(data){
+										var s=data[1]+'<br>总人数：';
+										for(var i=0;i<34;i++){
+											if(data[1]==res[i].name){
+												s+=res[i].value;
+												break;
+											}
+										}
+										return s;
+									}
+								}, name : '选择器', type : 'map', mapType : 'china',mapLocation : {
 									x : 'left', y : 'top', width : '30%'
 								}, roam : true, selectedMode : 'single', itemStyle : {
-									// normal:{label:{show:true}},
+									normal:{label:{show:true}},
 									emphasis : {
 										label : {
 											show : true
@@ -206,7 +222,7 @@ $('#statistics #statisticsbtn').click(function() {
 								}, {
 									name : '澳门', selected : false
 								} ]
-							} ], animation : false
+							} ],animation : false
 						};
 						var ecConfig = require('echarts/config');
 						myChart.on(ecConfig.EVENT.MAP_SELECTED, function(param) {
@@ -243,7 +259,7 @@ $('#statistics #statisticsbtn').click(function() {
 								}, roam : true, data : res
 							};
 							option.legend = {
-								x : 'right', data : [ '人数' ]
+								x : 'right', data : [ '人数' ,res[0].name+":"+res[0].value]
 							};
 							option.dataRange = {
 								orient : 'horizontal', x : 'right', min : 0, max : 1000, color : [ 'orange', 'yellow' ], text : [ '多', '少' ], // 文本，默认为数值文本

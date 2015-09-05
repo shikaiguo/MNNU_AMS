@@ -29,7 +29,9 @@ $(document).on('click', '.modal-content .query #submit', function() {
 					break;
 			}
 			s += obj.find("#index").val() + " " + obj.find("#eq").val() + " '" + obj.find("input").val() + "' ";
-			qs += k + v + "&";
+			if(qs!="")
+				qs+=" & ";
+			qs += k + v;
 		} else
 			break;
 		obj = obj.next();

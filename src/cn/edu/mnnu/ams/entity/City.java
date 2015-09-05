@@ -12,7 +12,6 @@ public class City {
 	private int cityid;
 	@Column(name="city_name")
 	private String cityname;
-	private String zip;
 	private int provinceid;
 
 	public int getCityid() {
@@ -29,14 +28,6 @@ public class City {
 
 	public void setCityname(String cityname) {
 		this.cityname = cityname;
-	}
-
-	public String getZip() {
-		return zip;
-	}
-
-	public void setZip(String zip) {
-		this.zip = zip;
 	}
 
 	public int getProvinceid() {
