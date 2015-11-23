@@ -32,4 +32,5 @@ public interface IAmsDAO {
 	//获取角色
 	Role getRole(int role_id);
 	void setLastLogintime(String username, long currentTimeMillis);
+	Role getRoleByRoletype(int type);
 }

@@ -24,4 +24,5 @@ public interface IAdminDAO {
 	List<Dept> getDept();
 	void addDept(String id, String name);
 	void addAlumniInfos(List<AlumniInfos> list);
+	List<User> getUserListByRoleid(int roleid);
 }

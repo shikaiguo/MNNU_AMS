@@ -41,4 +41,5 @@ public interface IAmsService {
 	//获取用户类型，1 管理员 2 用户
 	int getRoleType(int role_id);
 	Role getRole(int role_id);
+	List<User> getUserList(int type);
 }

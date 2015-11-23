@@ -16,7 +16,9 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.web.multipart.MultipartFile;
 
+import cn.edu.mnnu.ams.dao.IAdminDAO;
 import cn.edu.mnnu.ams.dao.IAmsDAO;
+import cn.edu.mnnu.ams.dao.IUserDAO;
 import cn.edu.mnnu.ams.entity.AlumniInfos;
 import cn.edu.mnnu.ams.entity.Dept;
 import cn.edu.mnnu.ams.entity.ExamineVerify;
@@ -30,10 +32,18 @@ import cn.edu.mnnu.ams.model.JqGridData;
 public class AmsService implements IAmsService {
 
 	private IAmsDAO amsDao;
+	private IAdminDAO adminDao;
+	private IUserDAO userDao;
 	private Func func = new Func();
 
 	public void setAmsDao(IAmsDAO amsDao) {
 		this.amsDao = amsDao;
+	}
+	public void setAdminDao(IAdminDAO adminDao) {
+		this.adminDao = adminDao;
+	}
+	public void setUserDao(IUserDAO userDao) {
+		this.userDao = userDao;
 	}
 
 	@Override
@@ -420,6 +430,15 @@ public class AmsService implements IAmsService {
 	@Override
 	public Role getRole(int role_id) {
 		return amsDao.getRole(role_id);
+	}
+
+	@Override
+	public List<User> getUserList(int type) {
+		Role role=amsDao.getRoleByRoletype(type);
+		if(role!=null){
+			return adminDao.getUserListByRoleid(role.getRoleid());
+		}
+		return null;
 	}
 
 }

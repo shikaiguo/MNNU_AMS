@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import cn.edu.mnnu.ams.entity.AlumniInfos;
+import cn.edu.mnnu.ams.entity.Role;
 import cn.edu.mnnu.ams.entity.User;
 import cn.edu.mnnu.ams.model.EchartData;
 import cn.edu.mnnu.ams.model.ExamineInfo;
@@ -56,9 +57,8 @@ public class AdminController extends SuperController {
 	@RequestMapping("myProfile")
 	public String myProfile(HttpSession session, HttpServletRequest request) {
 		if (amsService.GetSessionRoleType(session) == 1) {
-			User user = amsService.getUser(session.getAttribute("username")
-					.toString());
-			request.setAttribute("user", user);
+			//User user = (User) session.getAttribute("user");
+			//request.setAttribute("user", user);
 			return "/Admin/myProfile";
 		}
 		return "/forbiden";
@@ -66,9 +66,20 @@ public class AdminController extends SuperController {
 
 	// *****************************用户管理*******************************
 	@RequestMapping("sAdminM")
-	public String sadminM(HttpSession session,HttpServletRequest request){
-		if(amsService.GetSessionRoleType(session)==1){
-			return "Admin/sAdminM";
+	public String sadminM(HttpSession session,Model m){
+		if(!session.isNew()){
+			Role role=(Role) session.getAttribute("role");
+			if(amsService.GetSessionRoleType(session)==1&&role.getRolename().equals("超级管理员")){
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				List<User> list = amsService.getUserList(2);
+				for(int i=0;i<list.size();i++){
+					User u=list.get(i);
+					u.setLastlogintime(sdf.format(Long.parseLong(u.getLastlogintime())));
+					list.set(i, u);
+				}
+				m.addAttribute("list", list);
+				return "Admin/sAdminM";
+			}
 		}
 		return "/forbiden";
 	}

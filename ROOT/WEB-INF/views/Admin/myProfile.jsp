@@ -43,7 +43,7 @@
 					<input value="${user.username }" readonly>
 					<br>
 					角色：
-					<input value="${user.role }" readonly>
+					<input value="${role.rolename }" readonly>
 					<br>
 					<hr>
 					<form action="/Admin/saveProfile" method="post">

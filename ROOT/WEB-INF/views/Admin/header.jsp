@@ -36,6 +36,9 @@
 							<span class="glyphicon glyphicon-chevron-down"> </span>
 						</button>
 						<ul class="dropdown-menu" aria-labelledby="dropdownMenu">
+							<!-- <li>
+								<a href="javascript:;" onclick="modalShow('Admin/myProfile')" data-toggle="modal" data-target=".modal-bh">个人信息</a>
+							</li> -->
 							<li>
 								<a href="javascript:;" onclick="modalShow('Public/updatePwd')" data-toggle="modal" data-target=".modal-bh">修改密码</a>
 							</li>

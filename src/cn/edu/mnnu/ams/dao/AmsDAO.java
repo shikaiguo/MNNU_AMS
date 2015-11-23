@@ -212,4 +212,11 @@ public class AmsDAO implements IAmsDAO {
 		Session session = sessionFactory.getCurrentSession();
 		session.createQuery(hql).executeUpdate();
 	}
+
+	@Override
+	public Role getRoleByRoletype(int type) {
+		String hql="FROM Role WHERE roletype='"+type+"'";
+		Session session=sessionFactory.getCurrentSession();
+		return (Role) session.createQuery(hql).list().get(0);
+	}
 }

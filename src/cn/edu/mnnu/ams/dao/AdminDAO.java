@@ -8,6 +8,7 @@ import org.hibernate.SessionFactory;
 import cn.edu.mnnu.ams.entity.AlumniInfos;
 import cn.edu.mnnu.ams.entity.Dept;
 import cn.edu.mnnu.ams.entity.ExamineVerify;
+import cn.edu.mnnu.ams.entity.Role;
 import cn.edu.mnnu.ams.entity.User;
 
 public class AdminDAO implements IAdminDAO {
@@ -163,5 +164,12 @@ public class AdminDAO implements IAdminDAO {
 				session.clear();
 			}
 		}
+	}
+
+	@Override
+	public List<User> getUserListByRoleid(int roleid) {
+		String hql="FROM User WHERE roleid='"+roleid+"'";
+		Session session=sessionFactory.getCurrentSession();
+		return session.createQuery(hql).list();
 	}
 }
