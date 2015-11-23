@@ -23,12 +23,12 @@ public class PublicController extends SuperController {
 
 	@RequestMapping("updatePwd")
 	public String updatePwd(HttpSession session){
-		if(amsService.VerifyUser(session)==0) return "forbiden";
+		if(amsService.GetSessionRoleType(session)==0) return "forbiden";
 		return "Public/updatePwd";
 	}
 	@RequestMapping(value="updatePwd",method=RequestMethod.POST)
 	public @ResponseBody int updatePwdP(HttpSession session,@RequestParam("opwd")String opwd,@RequestParam("npwd")String npwd){
-		if(amsService.VerifyUser(session)!=0&&opwd!=null&&npwd!=null){
+		if(amsService.GetSessionRoleType(session)!=0&&opwd!=null&&npwd!=null){
 			return amsService.updatePassword(session.getAttribute("username").toString(),opwd,npwd);
 		}
 		return 0;

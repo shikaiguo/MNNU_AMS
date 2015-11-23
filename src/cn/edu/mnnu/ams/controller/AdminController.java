@@ -39,7 +39,7 @@ public class AdminController extends SuperController {
 	@RequestMapping({ "/index", "" })
 	public String index(HttpSession session, HttpServletRequest request) {
 		if (!session.isNew()) {
-			if (amsService.VerifyUser(session) == 1) {
+			if (amsService.GetSessionRoleType(session) == 1) {
 				request.setAttribute("title", "校友信息管理系统 - 闽南师范大学");
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 				User user=(User) session.getAttribute("user");
@@ -55,7 +55,7 @@ public class AdminController extends SuperController {
 	// *********个人信息**********
 	@RequestMapping("myProfile")
 	public String myProfile(HttpSession session, HttpServletRequest request) {
-		if (amsService.VerifyUser(session) == 1) {
+		if (amsService.GetSessionRoleType(session) == 1) {
 			User user = amsService.getUser(session.getAttribute("username")
 					.toString());
 			request.setAttribute("user", user);
@@ -65,11 +65,32 @@ public class AdminController extends SuperController {
 	}
 
 	// *****************************用户管理*******************************
+	@RequestMapping("sAdminM")
+	public String sadminM(HttpSession session,HttpServletRequest request){
+		if(amsService.GetSessionRoleType(session)==1){
+			return "Admin/sAdminM";
+		}
+		return "/forbiden";
+	}
+	@RequestMapping("userM")
+	public String userM(HttpSession session,HttpServletRequest request){
+		if(amsService.GetSessionRoleType(session)==1){
+			return "Admin/userM";
+		}
+		return "/forbiden";
+	}
+	@RequestMapping("authorityAssign")
+	public String authorityAssign(HttpSession session,HttpServletRequest request){
+		if(amsService.GetSessionRoleType(session)==1){
+			return "Admin/authorityAssign";
+		}
+		return "/forbiden";
+	}
 	// *****************************校友信息管理**************************
 	// 显示
 	@RequestMapping("query")
 	public String query(HttpSession session,HttpServletRequest request) {
-		if (amsService.VerifyUser(session) == 1) { 
+		if (amsService.GetSessionRoleType(session) == 1) { 
 			request.setAttribute("title", "信息查询");
 			return "/Admin/query"; }
 		return "/forbiden";
@@ -80,13 +101,13 @@ public class AdminController extends SuperController {
 	public @ResponseBody
 	JqGridData<AlumniInfos> loadList(@RequestParam("rows") String rows,
 			@RequestParam("page") String page, @RequestParam("val") String condition,HttpServletRequest request, HttpSession session) {
-		if (amsService.VerifyUser(session) != 1) return null;
+		if (amsService.GetSessionRoleType(session) != 1) return null;
 		return amsService.queryAlumniInfos(condition);
 	}
 	//显示导入页
 	@RequestMapping("importExcel")
 	public String importExcel(HttpSession session) {
-		if (amsService.VerifyUser(session) != 1) return "/forbiden";
+		if (amsService.GetSessionRoleType(session) != 1) return "/forbiden";
 		return "/Admin/importExcel";
 	}
 	//导入操作
@@ -95,7 +116,7 @@ public class AdminController extends SuperController {
 	List<AlumniInfos> excelToMysql(
 			@RequestParam("excelFile") MultipartFile file, HttpSession session)
 			throws IOException {
-		if (amsService.VerifyUser(session) != 1) return null;
+		if (amsService.GetSessionRoleType(session) != 1) return null;
 		List<AlumniInfos> list = amsService.readExcel(file);
 		amsService.importExcel(list);
 		return list;
@@ -103,14 +124,14 @@ public class AdminController extends SuperController {
 	// 显示维护页面
 	@RequestMapping("maintain")
 	public String maintain(HttpSession session,HttpServletRequest request) {
-		if (amsService.VerifyUser(session) != 1) return "/forbiden";
+		if (amsService.GetSessionRoleType(session) != 1) return "/forbiden";
 		request.setAttribute("title", "信息维护");
 		return "Admin/maintain";
 	}
 	//显示审批页面
 	@RequestMapping("examineVerify")
 	public String examineVerify(HttpSession session, Model m) {
-		if (amsService.VerifyUser(session) != 1) return "/forbiden";
+		if (amsService.GetSessionRoleType(session) != 1) return "/forbiden";
 		List<ExamineInfo> list = amsService.getExamineInfos();
 		m.addAttribute("list", list);
 		return "Admin/examineVerify";
@@ -119,7 +140,7 @@ public class AdminController extends SuperController {
 	@RequestMapping("simpleUserInfo/{uid}")
 	public String simpleUserInfo(@PathVariable String uid, HttpSession session,
 			Model m) {
-		if (amsService.VerifyUser(session) != 1) return null;
+		if (amsService.GetSessionRoleType(session) != 1) return null;
 		m.addAttribute("puid", uid);
 		/* User u=amsService.getUser(uid); */
 		return "Admin/simpleUserInfo";
@@ -128,7 +149,7 @@ public class AdminController extends SuperController {
 	@RequestMapping(value = "passEV", method = RequestMethod.POST)
 	public @ResponseBody
 	String passEV(@RequestParam("arr") String arr, HttpSession session) {
-		if (amsService.VerifyUser(session) != 1) return "无效用户";
+		if (amsService.GetSessionRoleType(session) != 1) return "无效用户";
 		amsService.passEV(arr.split(","));
 		return "xxx";
 	}
@@ -136,7 +157,7 @@ public class AdminController extends SuperController {
 	@RequestMapping(value = "refuseEV", method = RequestMethod.POST)
 	public @ResponseBody
 	String refuseEV(@RequestParam("arr") String arr, HttpSession session) {
-		if (amsService.VerifyUser(session) != 1) return "无效用户";
+		if (amsService.GetSessionRoleType(session) != 1) return "无效用户";
 		amsService.refuseEV(arr.split(","));
 		return "xxx";
 	}
@@ -144,7 +165,7 @@ public class AdminController extends SuperController {
 	@RequestMapping(value = "flushEV", method = RequestMethod.POST)
 	public @ResponseBody
 	String flushEV(HttpSession session) {
-		if (amsService.VerifyUser(session) != 1) return "无效用户";
+		if (amsService.GetSessionRoleType(session) != 1) return "无效用户";
 		List<ExamineInfo> list = amsService.getExamineInfos();
 		amsService.flushEV(list);
 		return "xxx";
@@ -153,7 +174,7 @@ public class AdminController extends SuperController {
 	// *****************************校友信息统计**************************
 	@RequestMapping(value = { "/alumniStatistics", "/statistics" }, method = RequestMethod.GET)
 	public String toAlumniStatistics(HttpSession session,HttpServletRequest request) {
-		if (amsService.VerifyUser(session) != 1) return "/forbiden";
+		if (amsService.GetSessionRoleType(session) != 1) return "/forbiden";
 		request.setAttribute("title", "信息统计");
 		return "/Admin/statistics";
 	}
@@ -161,21 +182,21 @@ public class AdminController extends SuperController {
 	@RequestMapping(value = "/getFromStatisticsAll", method = RequestMethod.POST)
 	public @ResponseBody
 	List<EchartData> getFromStatisticsAll(HttpSession session) {
-		if (amsService.VerifyUser(session) != 1) return null;
+		if (amsService.GetSessionRoleType(session) != 1) return null;
 		return amsService.getAreaStatistics("AlumniFrom");
 	}
 
 	@RequestMapping(value = "/getWorkStatisticsAll", method = RequestMethod.POST)
 	public @ResponseBody
 	List<EchartData> getWorkStatisticsAll(HttpSession session) {
-		if (amsService.VerifyUser(session) != 1) return null;
+		if (amsService.GetSessionRoleType(session) != 1) return null;
 		return amsService.getAreaStatistics("AlumniWork");
 	}
 
 	@RequestMapping(value = "getProfessionType/{dept}", method = RequestMethod.POST)
 	public @ResponseBody
 	List<String> getProfessionType(HttpSession session, @PathVariable String dept) {
-		if (amsService.VerifyUser(session) != 1) return null;
+		if (amsService.GetSessionRoleType(session) != 1) return null;
 		return amsService.getProfessionType(dept);
 	}
 
@@ -183,14 +204,14 @@ public class AdminController extends SuperController {
 	public @ResponseBody
 	List<EchartData> getProfessionStatistics(HttpSession session,
 			@PathVariable String dept) {
-		if (amsService.VerifyUser(session) != 1) return null;
+		if (amsService.GetSessionRoleType(session) != 1) return null;
 		return amsService.getProfessionStatistics(dept);
 	}
 
 	@RequestMapping(value = "getDeptStatistics", method = RequestMethod.POST)
 	public @ResponseBody
 	List<EchartData> getDeptStatistics(HttpSession session) {
-		if (amsService.VerifyUser(session) != 1) return null;
+		if (amsService.GetSessionRoleType(session) != 1) return null;
 		return amsService.getDeptStatistics();
 	}
 
@@ -198,7 +219,7 @@ public class AdminController extends SuperController {
 	// *****************************系统维护*******************************
 	@RequestMapping("deptSetting")
 	public String toDeptSetting(HttpSession session,HttpServletRequest request) {
-		if (amsService.VerifyUser(session) != 1) return "/forbiden";
+		if (amsService.GetSessionRoleType(session) != 1) return "/forbiden";
 		request.setAttribute("title", "院系设置");
 		request.setAttribute("list", amsService.getDept());
 		return "/Admin/deptSetting";
@@ -208,7 +229,7 @@ public class AdminController extends SuperController {
 	public @ResponseBody
 	String addNewDept(@RequestParam("id") String id,
 			@RequestParam("name") String name, HttpSession session) {
-		if (amsService.VerifyUser(session) != 1) return "/forbiden";
+		if (amsService.GetSessionRoleType(session) != 1) return "/forbiden";
 		amsService.addDept(id, name);
 		return "1";
 

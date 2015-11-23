@@ -53,15 +53,12 @@
 						<div class="item">
 							用户管理
 							<div class="pitem">
-								<%
-									//String role = session.getAttribute("role").toString();
-									//if (role!=null&&role.equals("超级管理员")) {
-								%>
-								<div>子管理员</div>
-								<%
-									//}
-								%>
-								<div>用户</div>
+								<div>
+									<a href="Admin/sAdminM">子管理员</a>
+								</div>
+								<div>
+									<a href="Admin/userM">用户</a>
+								</div>
 								<div>
 									<a href="Admin/authorityAssign">权限分配</a>
 								</div>

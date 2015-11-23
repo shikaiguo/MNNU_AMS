@@ -54,7 +54,7 @@ public class AmsService implements IAmsService {
 	}
 
 	@Override
-	public int VerifyUser(HttpSession session) {
+	public int GetSessionRoleType(HttpSession session) {
 		if (session != null && session.getAttribute("role") != null) {
 			Role role = (Role) session.getAttribute("role");
 			if (role != null) { return role.getRoletype();}

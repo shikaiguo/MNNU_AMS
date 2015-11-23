@@ -21,7 +21,7 @@ public class UserController  extends SuperController {
 		@RequestMapping({ "/index","" })
 		public String index(HttpSession session, HttpServletRequest request) {
 			if (!session.isNew()) {
-				if (amsService.VerifyUser(session) == 2) {
+				if (amsService.GetSessionRoleType(session) == 2) {
 					request.setAttribute("title", "校友信息管理系统 - 闽南师范大学");
 					return "/User/index";
 				}
@@ -30,7 +30,7 @@ public class UserController  extends SuperController {
 		}
 		@RequestMapping("myProfile")
 		public String myProfile(HttpSession session,HttpServletRequest request){
-			if (amsService.VerifyUser(session) == 2) {
+			if (amsService.GetSessionRoleType(session) == 2) {
 				User user=amsService.getUser(session.getAttribute("username").toString());
 				int bindid=user.getBindid();
 				if(bindid!=-1){
@@ -42,7 +42,7 @@ public class UserController  extends SuperController {
 		}
 		@RequestMapping(value="updateProfile",method=RequestMethod.POST)
 		public @ResponseBody String updateProfile(HttpSession session){
-			if (amsService.VerifyUser(session) == 2) {
+			if (amsService.GetSessionRoleType(session) == 2) {
 				return "/User/myProfile";
 			}
 			return "forbiden";

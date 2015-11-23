@@ -20,7 +20,7 @@ public interface IAmsService {
 	//登陆 返回值：用户对象或null
 	User Login(String uid,String pwd);
 	//验证 返回值：0-失败 1-管理员 2-用户
-	int VerifyUser(HttpSession session);
+	int GetSessionRoleType(HttpSession session);
 	User getUser(String username);
 	JqGridData<AlumniInfos> queryAlumniInfos(String condition);
 	AlumniInfos getAlumniInfoFromId(int id);
