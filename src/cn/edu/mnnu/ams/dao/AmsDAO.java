@@ -8,6 +8,7 @@ import org.hibernate.SessionFactory;
 import cn.edu.mnnu.ams.entity.AlumniInfos;
 import cn.edu.mnnu.ams.entity.Dept;
 import cn.edu.mnnu.ams.entity.ExamineVerify;
+import cn.edu.mnnu.ams.entity.Role;
 import cn.edu.mnnu.ams.entity.User;
 
 public class AmsDAO implements IAmsDAO {
@@ -194,6 +195,20 @@ public class AmsDAO implements IAmsDAO {
 	@Override
 	public void setPassword(String username, String password) {
 		String hql="UPDATE User SET password='"+password+"' WHERE username='"+username+"'";
+		Session session = sessionFactory.getCurrentSession();
+		session.createQuery(hql).executeUpdate();
+	}
+
+	@Override
+	public Role getRole(int role_id) {
+		String hql="FROM Role WHERE roleid='"+role_id+"'";
+		Session session=sessionFactory.getCurrentSession();
+		return (Role) session.createQuery(hql).list().get(0);
+	}
+
+	@Override
+	public void setLastLogintime(String username, long currentTimeMillis) {
+		String hql="UPDATE User SET lastlogintime='"+currentTimeMillis+"' WHERE username='"+username+"'";
 		Session session = sessionFactory.getCurrentSession();
 		session.createQuery(hql).executeUpdate();
 	}

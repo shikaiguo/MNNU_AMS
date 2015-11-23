@@ -5,10 +5,10 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import cn.edu.mnnu.ams.entity.Admin;
 import cn.edu.mnnu.ams.entity.AlumniInfos;
 import cn.edu.mnnu.ams.entity.Dept;
 import cn.edu.mnnu.ams.entity.ExamineVerify;
+import cn.edu.mnnu.ams.entity.User;
 
 public class AdminDAO implements IAdminDAO {
 	private SessionFactory sessionFactory;
@@ -18,9 +18,9 @@ public class AdminDAO implements IAdminDAO {
 	}
 
 	@Override
-	public Admin getUser(String uid) {
-		Admin au = (Admin) sessionFactory.getCurrentSession().get(
-				Admin.class, uid);
+	public User getUser(String uid) {
+		User au = (User) sessionFactory.getCurrentSession().get(
+				User.class, uid);
 		return au;
 	}
 	@Override

@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import cn.edu.mnnu.ams.entity.AlumniInfos;
 import cn.edu.mnnu.ams.entity.Dept;
+import cn.edu.mnnu.ams.entity.Role;
 import cn.edu.mnnu.ams.entity.User;
 import cn.edu.mnnu.ams.model.EchartData;
 import cn.edu.mnnu.ams.model.ExamineInfo;
@@ -16,8 +17,8 @@ import cn.edu.mnnu.ams.model.JqGridData;
 
 
 public interface IAmsService {
-	//登陆 返回值：0-错误 1-管理员 2-用户
-	int Login(String uid,String pwd);
+	//登陆 返回值：用户对象或null
+	User Login(String uid,String pwd);
 	//验证 返回值：0-失败 1-管理员 2-用户
 	int VerifyUser(HttpSession session);
 	User getUser(String username);
@@ -37,4 +38,7 @@ public interface IAmsService {
 	List<AlumniInfos> readExcel(MultipartFile file) throws IOException;
 	void importExcel(List<AlumniInfos> list);
 	int updatePassword(String username, String opwd, String npwd);
+	//获取用户类型，1 管理员 2 用户
+	int getRoleType(int role_id);
+	Role getRole(int role_id);
 }

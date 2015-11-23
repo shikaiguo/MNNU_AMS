@@ -32,7 +32,7 @@
 				<div class="nav">
 					<div class="nav-name dropdown">
 						<button class="dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-							${role.rolename}：${user.username}
+							管理员：${username}
 							<span class="glyphicon glyphicon-chevron-down"> </span>
 						</button>
 						<ul class="dropdown-menu" aria-labelledby="dropdownMenu">
@@ -86,7 +86,7 @@
 							<a href="Admin/statistics">校友统计</a>
 						</div>
 						<!-- <div class="item" onclick="changePage('Admin/alumniStatistics')">校友统计2</div>-->
-						<div class="item" onclick="alert('未开放')">校友园地</div>
+						<div class="item">校友园地</div>
 						<div class="item">
 							系统维护
 							<div class="pitem">

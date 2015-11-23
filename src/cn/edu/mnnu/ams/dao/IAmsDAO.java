@@ -5,6 +5,7 @@ import java.util.List;
 import cn.edu.mnnu.ams.entity.AlumniInfos;
 import cn.edu.mnnu.ams.entity.Dept;
 import cn.edu.mnnu.ams.entity.ExamineVerify;
+import cn.edu.mnnu.ams.entity.Role;
 import cn.edu.mnnu.ams.entity.User;
 
 public interface IAmsDAO {
@@ -28,4 +29,7 @@ public interface IAmsDAO {
 	void addDept(String id, String name);
 	void importAlumniInfos(List<AlumniInfos> list);
 	void setPassword(String username, String password);
+	//获取角色
+	Role getRole(int role_id);
+	void setLastLogintime(String username, long currentTimeMillis);
 }

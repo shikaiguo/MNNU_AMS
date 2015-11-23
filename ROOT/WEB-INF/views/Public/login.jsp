@@ -96,10 +96,6 @@
 </style>
 </head>
 <body>
-	<div class="session-info">
-		Session id:<%=session.getId()%><br>
-		role:${roletype}
-	</div>
 	<div class="login-div">
 		<div class="title">校友信息管理系统--登录</div>
 		<form action="Public/login" id="login-form" method="post" onsubmit="return checkInfo();">

@@ -3,7 +3,9 @@
 <!-- 页面内容 -->
 <div class="col-xs-12 content">
 	<pre>
-最后登陆时间：${lastlogintime}
+Session id:<%=session.getId()%>
+roletype:${roletype }
+主页内容
 
 
 

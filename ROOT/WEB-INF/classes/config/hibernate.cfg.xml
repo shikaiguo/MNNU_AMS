@@ -3,7 +3,6 @@
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
 	<session-factory>
-		 <mapping class="cn.edu.mnnu.ams.entity.Admin"/>
 		 <mapping class="cn.edu.mnnu.ams.entity.AlumniFrom"/>
 		 <mapping class="cn.edu.mnnu.ams.entity.AlumniInfos"/>
  		 <mapping class="cn.edu.mnnu.ams.entity.AlumniWork"/>
@@ -13,5 +12,6 @@
 		 <mapping class="cn.edu.mnnu.ams.entity.ExamineVerify"/>
 		 <mapping class="cn.edu.mnnu.ams.entity.Province"/>
 		 <mapping class="cn.edu.mnnu.ams.entity.User"/>
+		 <mapping class="cn.edu.mnnu.ams.entity.Role"/>
 	</session-factory>
 </hibernate-configuration>

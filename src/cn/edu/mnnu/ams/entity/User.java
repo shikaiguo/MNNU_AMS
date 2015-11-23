@@ -1,5 +1,6 @@
 package cn.edu.mnnu.ams.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,8 +16,11 @@ public class User {
 	private String username;
 	private String password;
 	private String mail;
-	private String role;
+	@Column(name="role_id")
+	private int roleid;
 	private int bindid;
+	@Column(name= "last_login_time")
+	private String lastlogintime;
 	public int getUid() {
 		return uid;
 	}
@@ -41,16 +45,22 @@ public class User {
 	public void setMail(String mail) {
 		this.mail = mail;
 	}
-	public String getRole() {
-		return role;
-	}
-	public void setRole(String role) {
-		this.role = role;
-	}
 	public int getBindid() {
 		return bindid;
 	}
 	public void setBindid(int bindid) {
 		this.bindid = bindid;
+	}
+	public int getRoleid() {
+		return roleid;
+	}
+	public void setRoleid(int roleid) {
+		this.roleid = roleid;
+	}
+	public String getLastlogintime() {
+		return lastlogintime;
+	}
+	public void setLastlogintime(String lastlogintime) {
+		this.lastlogintime = lastlogintime;
 	}
 }

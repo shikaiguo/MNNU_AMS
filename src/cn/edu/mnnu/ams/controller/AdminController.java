@@ -1,6 +1,7 @@
 package cn.edu.mnnu.ams.controller;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -40,7 +41,12 @@ public class AdminController extends SuperController {
 		if (!session.isNew()) {
 			if (amsService.VerifyUser(session) == 1) {
 				request.setAttribute("title", "校友信息管理系统 - 闽南师范大学");
-				return "/Admin/index";
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				User user=(User) session.getAttribute("user");
+				if(user!=null){
+			        request.setAttribute("lastlogintime", sdf.format(Long.parseLong(user.getLastlogintime())));  
+					return "/Admin/index";
+				}
 			}
 		}
 		return "/forbiden";

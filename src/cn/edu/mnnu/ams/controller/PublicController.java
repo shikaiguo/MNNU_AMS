@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cn.edu.mnnu.ams.entity.Role;
+import cn.edu.mnnu.ams.entity.User;
+
 @Controller
 @RequestMapping({ "Public",""})
 public class PublicController extends SuperController {
@@ -20,7 +23,7 @@ public class PublicController extends SuperController {
 
 	@RequestMapping("updatePwd")
 	public String updatePwd(HttpSession session){
-		if(amsService.VerifyUser(session)==0)return "forbiden";
+		if(amsService.VerifyUser(session)==0) return "forbiden";
 		return "Public/updatePwd";
 	}
 	@RequestMapping(value="updatePwd",method=RequestMethod.POST)
@@ -33,7 +36,7 @@ public class PublicController extends SuperController {
 	// 显示登陆页
 	@RequestMapping({ "/login", "" })
 	public String login(HttpSession session) {
-		session.invalidate();
+		//session.invalidate();
 		return "/Public/login";
 	}
 
@@ -52,20 +55,22 @@ public class PublicController extends SuperController {
 		NDC.push(remoteAddr);
 
 		if (username != null && password != null) {
-			int res = amsService.Login(username, password);
-			switch (res) {
-				case 1:
-					logger.info("Admin: [" + username + "] logined.");
-					session.setAttribute("username", username);
+			User user = amsService.Login(username, password);
+			if(user!=null&&user.getRoleid()>0){
+				logger.info("User: [" + username + "] logined.");
+				session.setAttribute("user", user);
+				Role role = amsService.getRole(user.getRoleid());
+				session.setAttribute("role", role);
+				if(role.getRoletype()==1)
 					return "redirect:/Admin/index";
-				case 2:
-					logger.info("User: [" + username + "] logined.");
-					session.setAttribute("username", username);
+				if(role.getRoletype()==2)
 					return "redirect:/User/index";
+				session.invalidate();
 			}
 		}
 		return "/Public/login";
 	}
+	
 	@RequestMapping("forbiden")
 	public void forbiden(){}
 }

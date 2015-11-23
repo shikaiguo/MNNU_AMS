@@ -20,6 +20,7 @@ import cn.edu.mnnu.ams.dao.IAmsDAO;
 import cn.edu.mnnu.ams.entity.AlumniInfos;
 import cn.edu.mnnu.ams.entity.Dept;
 import cn.edu.mnnu.ams.entity.ExamineVerify;
+import cn.edu.mnnu.ams.entity.Role;
 import cn.edu.mnnu.ams.entity.User;
 import cn.edu.mnnu.ams.func.Func;
 import cn.edu.mnnu.ams.model.EchartData;
@@ -36,25 +37,27 @@ public class AmsService implements IAmsService {
 	}
 
 	@Override
-	public int Login(String username, String password) {
+	public User Login(String username, String password) {
 		User u = amsDao.getUser(username);
 		if (u != null) {
 			try {
-				if (func.md5(password).equals(u.getPassword())) { return Integer
-						.parseInt(u.getRole().split("@")[0]); }
+				if (func.md5(username+password).equals(u.getPassword())) {
+					User user = amsDao.getUser(username);
+					amsDao.setLastLogintime(username,System.currentTimeMillis());
+					return user;
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
-		return 0;
+		return null;
 	}
 
 	@Override
 	public int VerifyUser(HttpSession session) {
-		if (session != null && session.getAttribute("username") != null) {
-			User u = amsDao
-					.getUser(session.getAttribute("username").toString());
-			if (u != null) { return Integer.parseInt(u.getRole().split("@")[0]); }
+		if (session != null && session.getAttribute("role") != null) {
+			Role role = (Role) session.getAttribute("role");
+			if (role != null) { return role.getRoletype();}
 		}
 		return 0;
 	}
@@ -398,11 +401,25 @@ public class AmsService implements IAmsService {
 	public int updatePassword(String username, String opwd, String npwd) {
 		if(npwd.length()<6||npwd.length()>16)return 0;
 		User user=amsDao.getUser(username);
-		if(user.getPassword().equals(func.md5(opwd))){
-			amsDao.setPassword(username,func.md5(npwd));
+		if(user.getPassword().equals(func.md5(username+opwd))){
+			amsDao.setPassword(username,func.md5(username+npwd));
 			return 1;
 		}
 		return 0;
+	}
+
+	@Override
+	public int getRoleType(int role_id) {
+		Role role=amsDao.getRole(role_id);
+		if(role != null){
+			return role.getRoletype();
+		}
+		return 0;
+	}
+
+	@Override
+	public Role getRole(int role_id) {
+		return amsDao.getRole(role_id);
 	}
 
 }

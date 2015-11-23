@@ -2,13 +2,13 @@ package cn.edu.mnnu.ams.dao;
 
 import java.util.List;
 
-import cn.edu.mnnu.ams.entity.Admin;
 import cn.edu.mnnu.ams.entity.AlumniInfos;
 import cn.edu.mnnu.ams.entity.Dept;
 import cn.edu.mnnu.ams.entity.ExamineVerify;
+import cn.edu.mnnu.ams.entity.User;
 
 public interface IAdminDAO {
-	Admin getUser(String uid);
+	User getUser(String uid);
 	List<AlumniInfos> getAlumniInfos(String condition);
 	List<ExamineVerify> getExamineVerify();
 	ExamineVerify getExamineVerifyItem(int id);
