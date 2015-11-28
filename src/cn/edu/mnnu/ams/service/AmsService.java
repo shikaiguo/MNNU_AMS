@@ -111,7 +111,7 @@ public class AmsService implements IAmsService {
 	public List<ExamineInfo> getExamineInfos() {
 		List<ExamineVerify> list_ev = amsDao.getExamineVerifyList();
 		List<ExamineInfo> list_ei = new ArrayList<ExamineInfo>();
-		String[] fileds = { "sno", "dept", "major", "class", "sname", "sex",
+		String[] fileds = { "sno", "dept", "major", "cls", "sname", "sex",
 				"province_from", "city_from", "district_from", "degree",
 				"gra_time", "province_work", "city_work", "district_work",
 				"work_unit", "duty", "job", "profession", "phone1", "phone2",
@@ -124,15 +124,18 @@ public class AmsService implements IAmsService {
 
 		for (int i = 0; i < list_ev.size(); i++) {
 			ExamineInfo ei = new ExamineInfo(list_ev.get(i));
-			int bindid = amsDao.getUser(ei.getUserid()).getBindid();
-			ei.setOldcontent( amsDao.getAlumniInfoFiled(bindid, ei.getFiled()));
-			for (int j = 0; j < fileds.length; j++) {
-				if (ei.getFiled().equals(fileds[j])) {
-					ei.setFiled(filedNames[j]);
-					break;
+			User u = amsDao.getUserByUid(ei.getUserid());
+			if(u!=null){
+				int bindid = u.getBindid();
+				ei.setOldcontent( amsDao.getAlumniInfoFiled(bindid, ei.getFiled()));
+				for (int j = 0; j < fileds.length; j++) {
+					if (ei.getFiled().equals(fileds[j])) {
+						ei.setFiled(filedNames[j]);
+						break;
+					}
 				}
+				list_ei.add(ei);
 			}
-			list_ei.add(ei);
 		}
 		return list_ei;
 	}
@@ -161,7 +164,7 @@ public class AmsService implements IAmsService {
 			ExamineVerify ev = amsDao.getExamineVerify(Integer
 					.parseInt(arr[i]));
 			
-			 User u = amsDao.getUser(ev.getUserid());
+			 User u = amsDao.getUserByUid(ev.getUserid());
 			 amsDao.setAlumniInfoFiled(u.getBindid(), ev.getFiled(),
 			 ev.getContent());
 			 amsDao.delExamineVerify(Integer.parseInt(arr[i]));
@@ -434,9 +437,13 @@ public class AmsService implements IAmsService {
 
 	@Override
 	public List<User> getUserList(int type) {
-		Role role=amsDao.getRoleByRoletype(type);
-		if(role!=null){
-			return adminDao.getUserListByRoleid(role.getRoleid());
+		List<Role> role_list=amsDao.getRoleByRoletype(type);
+		if(role_list!=null){
+			List<User> user_list=new ArrayList<User>();
+			for(int i=0;i<role_list.size();i++){
+				user_list.addAll(adminDao.getUserListByRoleid(role_list.get(i).getRoleid()));
+			}
+			return user_list;
 		}
 		return null;
 	}

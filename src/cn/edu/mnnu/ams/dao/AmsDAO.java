@@ -27,6 +27,16 @@ public class AmsDAO implements IAmsDAO {
 			return ulist.get(0);
 		return null;
 	}
+	
+	@Override
+	public User getUserByUid(int uid) {
+		String hql="FROM User WHERE id='"+uid+"'";
+		Session session=sessionFactory.getCurrentSession();
+		List<User> ulist=session.createQuery(hql).list();
+		if(ulist.size()>0)
+			return ulist.get(0);
+		return null;
+	}
 
 	@Override
 	public List<AlumniInfos> getAlumniInfoList(String condition) {
@@ -214,9 +224,9 @@ public class AmsDAO implements IAmsDAO {
 	}
 
 	@Override
-	public Role getRoleByRoletype(int type) {
+	public List<Role> getRoleByRoletype(int type) {
 		String hql="FROM Role WHERE roletype='"+type+"'";
 		Session session=sessionFactory.getCurrentSession();
-		return (Role) session.createQuery(hql).list().get(0);
+		return session.createQuery(hql).list();
 	}
 }

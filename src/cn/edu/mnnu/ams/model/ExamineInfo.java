@@ -4,7 +4,7 @@ import cn.edu.mnnu.ams.entity.ExamineVerify;
 
 public class ExamineInfo {
 	private int id;
-	private String userid;
+	private int userid;
 	private String filed;
 	private String oldcontent;
 	private String content;
@@ -23,10 +23,10 @@ public class ExamineInfo {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getUserid() {
+	public int getUserid() {
 		return userid;
 	}
-	public void setUserid(String userid) {
+	public void setUserid(int userid) {
 		this.userid = userid;
 	}
 	public String getFiled() {

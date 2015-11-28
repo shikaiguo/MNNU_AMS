@@ -10,6 +10,7 @@ import cn.edu.mnnu.ams.entity.User;
 
 public interface IAmsDAO {
 	User getUser(String username);
+	User getUserByUid(int uid);
 	List<AlumniInfos> getAlumniInfoList(String condition);
 	AlumniInfos getAlumniInfo(int id);
 	String getAlumniInfoFiled(int bindid, String filed);
@@ -32,5 +33,5 @@ public interface IAmsDAO {
 	//获取角色
 	Role getRole(int role_id);
 	void setLastLogintime(String username, long currentTimeMillis);
-	Role getRoleByRoletype(int type);
+	List<Role> getRoleByRoletype(int type);
 }

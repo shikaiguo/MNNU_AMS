@@ -16,7 +16,6 @@ public class AlumniInfos {
 	private String sno;
 	private String dept;
 	private String major;
-	@Column(name="class")
 	private String cls;
 	private String sname;
 	private String sex;

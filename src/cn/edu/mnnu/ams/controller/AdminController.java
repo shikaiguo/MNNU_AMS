@@ -78,14 +78,24 @@ public class AdminController extends SuperController {
 					list.set(i, u);
 				}
 				m.addAttribute("list", list);
-				return "Admin/sAdminM";
+				m.addAttribute("m_type","子管理员");
+				return "Admin/userM";
 			}
 		}
 		return "/forbiden";
 	}
 	@RequestMapping("userM")
-	public String userM(HttpSession session,HttpServletRequest request){
+	public String userM(HttpSession session,HttpServletRequest request,Model m){
 		if(amsService.GetSessionRoleType(session)==1){
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			List<User> list = amsService.getUserList(3);
+			for(int i=0;i<list.size();i++){
+				User u=list.get(i);
+				u.setLastlogintime(sdf.format(Long.parseLong(u.getLastlogintime())));
+				list.set(i, u);
+			}
+			m.addAttribute("list", list);
+			m.addAttribute("m_type","用户");
 			return "Admin/userM";
 		}
 		return "/forbiden";
