@@ -42,4 +42,6 @@ public interface IAmsService {
 	int getRoleType(int role_id);
 	Role getRole(int role_id);
 	List<User> getUserList(int type);
+	//添加用户
+	int addUser(String username, String password, String email, int bind_id);
 }

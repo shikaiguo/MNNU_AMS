@@ -28,4 +28,4 @@
 	</table>
 </div>
 <%@ include file="footer.jsp"%>
-<script src="js/examineVerify.js"></script>
+<script src="js/userM.js"></script>

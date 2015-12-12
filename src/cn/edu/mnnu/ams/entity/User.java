@@ -15,12 +15,12 @@ public class User {
 	private int uid;
 	private String username;
 	private String password;
-	private String mail;
+	private String mail="";
 	@Column(name="role_id")
-	private int roleid;
-	private int bindid;
+	private int roleid=0;
+	private int bindid=-1;
 	@Column(name= "last_login_time")
-	private String lastlogintime;
+	private String lastlogintime="0";
 	public int getUid() {
 		return uid;
 	}

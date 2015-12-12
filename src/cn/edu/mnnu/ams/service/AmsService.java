@@ -447,5 +447,16 @@ public class AmsService implements IAmsService {
 		}
 		return null;
 	}
+	@Override
+	public int addUser(String username, String password, String email,
+			int bind_id) {
+		User u=amsDao.getUser(username);
+		if(u!=null){
+			return -3;
+		}
+		password=func.md5(password);
+		amsDao.addUser(username,password,email,bind_id);
+		return 1;
+	}
 
 }

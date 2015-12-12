@@ -100,6 +100,16 @@ public class AdminController extends SuperController {
 		}
 		return "/forbiden";
 	}
+	@RequestMapping("addUser")
+	public @ResponseBody String addUser(HttpSession session, HttpServletRequest request, @RequestParam("username") String username, @RequestParam("password") String password,
+			@RequestParam("repassword") String repassword, @RequestParam("email") String email, @RequestParam("aid") String aid) {
+		if(username.equals("")) return "-1";
+		if(password.equals("")||!password.equals(repassword)||password.length()<6) return "-2";
+		int bind_id=-1;
+		if(!aid.equals(""))bind_id=Integer.parseInt(aid);
+		int status=amsService.addUser(username,password,email,bind_id);
+		return status+"";
+	}
 	@RequestMapping("authorityAssign")
 	public String authorityAssign(HttpSession session,HttpServletRequest request){
 		if(amsService.GetSessionRoleType(session)==1){

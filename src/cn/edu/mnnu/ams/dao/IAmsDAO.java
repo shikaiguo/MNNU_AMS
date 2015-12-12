@@ -34,4 +34,5 @@ public interface IAmsDAO {
 	Role getRole(int role_id);
 	void setLastLogintime(String username, long currentTimeMillis);
 	List<Role> getRoleByRoletype(int type);
+	void addUser(String username, String password, String email, int bind_id);
 }

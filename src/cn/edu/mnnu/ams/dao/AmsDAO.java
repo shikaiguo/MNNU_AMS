@@ -229,4 +229,16 @@ public class AmsDAO implements IAmsDAO {
 		Session session=sessionFactory.getCurrentSession();
 		return session.createQuery(hql).list();
 	}
+
+	@Override
+	public void addUser(String username, String password, String email,
+			int bind_id) {
+		User u=new User();
+		u.setUsername(username);
+		u.setPassword(password);
+		u.setMail(email);
+		u.setBindid(bind_id);
+		Session session = sessionFactory.getCurrentSession();
+		session.save(u);
+	}
 }
